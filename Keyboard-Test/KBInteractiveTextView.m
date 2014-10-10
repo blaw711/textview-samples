@@ -62,7 +62,7 @@
 //    if ([delegate respondsToSelector:@selector(growingTextView:willChangeHeight:)]) {
 //        [delegate growingTextView:self willChangeHeight:newSizeH];
 //    }
-    self.heightConstraint.constant = newSizeH;
+    self.heightConstraint.constant = newSizeH + 10;
     
     [UIView animateWithDuration:0.3 animations:^{
         [self layoutIfNeeded];
@@ -90,7 +90,7 @@
         newSizeH = maxHeight; // not taller than maxHeight
     }
     [self resizeTextView:newSizeH];
-    [self.delegate textView:self didChangeToHeight:newSizeH];
+    [self.delegate textView:self didChangeToHeight:newSizeH + 10];
 }
 
 

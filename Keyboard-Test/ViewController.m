@@ -29,12 +29,14 @@
     self.textView = [[KBInteractiveTextView alloc] init];
     self.textView.translatesAutoresizingMaskIntoConstraints = NO;
     self.textView.delegate = self;
+//    self.textView.textView.inputAccessoryView = self.textView;
     [self.view addSubview:self.textView];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     [self.view addSubview:self.tableView];
     
     self.tableViewHeight = [NSLayoutConstraint constraintWithItem:self.tableView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:CGRectGetHeight([UIScreen mainScreen].bounds) - self.textView.heightConstraint.constant];
@@ -54,6 +56,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
+
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewWasTapped)]];
     
 }
@@ -101,6 +105,26 @@
 
 }
 
+- (void)keyBoardWillChangeFrame:(NSNotification *)notification
+{
+    NSDictionary* userInfo = notification.userInfo;
+
+    CGFloat keyboardSlideDuration = [[userInfo objectForKey: UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    CGRect keyboardFrame = [[userInfo objectForKey: UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+    
+    self.keyboardHeight = @(keyboardFrame.size.height);
+    self.textViewBottomConstraint.constant = -keyboardFrame.size.height;
+    self.tableViewHeight.constant = CGRectGetHeight([UIScreen mainScreen].bounds) - keyboardFrame.size.height - self.textView.heightConstraint.constant;
+    
+    [UIView animateWithDuration:0 animations:^{
+        [self.view layoutIfNeeded];
+    } completion:^(BOOL finished){
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:29 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }];
+    
+    
+}
+
 - (void)viewWasTapped
 {
     [self.textView.textView resignFirstResponder];
@@ -136,5 +160,35 @@
     
     return cell ;
 }
+
+- (UIView *)inputAccessoryView {
+    //if (!inputAccessoryView) {
+        CGRect accessFrame = CGRectMake(0.0, 0.0, 768.0, 77.0);
+        UIView *inputAccessoryView = [[UIView alloc] initWithFrame:accessFrame];
+        inputAccessoryView.backgroundColor = [UIColor blueColor];
+        UIButton *compButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        compButton.frame = CGRectMake(313.0, 20.0, 158.0, 37.0);
+        [compButton setTitle: @"Word Completions" forState:UIControlStateNormal];
+        [compButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+     //   [compButton addTarget:self action:@selector(completeCurrentWord:)
+           //  forControlEvents:UIControlEventTouchUpInside];
+        [inputAccessoryView addSubview:compButton];
+    //}
+    return inputAccessoryView;
+}
+
+//- (UIView *)inputAccessoryView{
+//    
+//    return self.textView;
+//    // where inputAccessoryToolbar is your keyboard accessory view
+//    
+//}
+//
+//-(BOOL)canBecomeFirstResponder
+//{
+//    return YES;
+//}
+
+
 
 @end
