@@ -29,21 +29,20 @@
         self.textView.layer.cornerRadius = 10.0f;
         self.textView.layer.borderColor = [UIColor lightGrayColor].CGColor;
         self.textView.layer.borderWidth = 2.0f;
-        self.textView.textContainerInset = UIEdgeInsetsMake(5, 2, 0, 0);
+        self.textView.textContainerInset = UIEdgeInsetsMake(5, 2, 5, 2);
         self.textView.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:18.0f];
         self.textView.delegate = self;
         [self addSubview:self.textView];
         
         self.button = [UIButton buttonWithType:UIButtonTypeCustom];
         self.button.translatesAutoresizingMaskIntoConstraints = NO;
-        self.button.backgroundColor = [UIColor blueColor];
+        [self.button setTitle:@"Send" forState:UIControlStateNormal];
+        [self.button setTitleColor:[UIColor colorWithRed:15.0/255.0 green:98.0/255.0 blue:155.0/255.0 alpha:1] forState:UIControlStateNormal];
         [self addSubview:self.button];
         
-        self.heightConstraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:40];
-        [self addConstraint:self.heightConstraint];
-        
         NSDictionary *views = NSDictionaryOfVariableBindings(_textView, _button);
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[_button(==30)]-5-[_textView]-5-|" options:0 metrics:0 views:views]];
+        NSDictionary *metrics = @{@"buttonWidth" : @(self.button.intrinsicContentSize.width)};
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[_textView]-5-[_button(==buttonWidth)]-5-|" options:0 metrics:metrics views:views]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[_textView]-5-|" options:0 metrics:0 views:views]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_button(==30)]-5-|" options:0 metrics:0 views:views]];
     }
@@ -61,11 +60,10 @@
 //    if ([delegate respondsToSelector:@selector(growingTextView:willChangeHeight:)]) {
 //        [delegate growingTextView:self willChangeHeight:newSizeH];
 //    }
-    self.heightConstraint.constant = newSizeH + 10;
     
-    [UIView animateWithDuration:0.3 animations:^{
-        [self layoutIfNeeded];
-    }];
+//    [UIView animateWithDuration:0.3 animations:^{
+//        [self layoutIfNeeded];
+//    }];
 //    CGRect internalTextViewFrame = self.frame;
 //    internalTextViewFrame.size.height = newSizeH; // + padding
 //    self.frame = internalTextViewFrame;
@@ -84,12 +82,14 @@
     NSInteger newSizeH = [self measureHeight];
     if (newSizeH < minHeight || !self.textView.text) {
         newSizeH = minHeight; //not smalles than minHeight
+
     }
     else if (maxHeight && newSizeH > maxHeight) {
         newSizeH = maxHeight; // not taller than maxHeight
     }
     [self resizeTextView:newSizeH];
-    [self.delegate textView:self didChangeToHeight:newSizeH + 10];
+    [self.delegate textView:self didChangeToHeight:newSizeH];
+
 }
 
 
