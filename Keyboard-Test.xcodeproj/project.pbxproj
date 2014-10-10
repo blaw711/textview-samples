@@ -15,6 +15,10 @@
 		5A61EAA219E774A500CC7A69 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A61EAA019E774A500CC7A69 /* LaunchScreen.xib */; };
 		5A61EAAE19E774A500CC7A69 /* Keyboard_TestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A61EAAD19E774A500CC7A69 /* Keyboard_TestTests.m */; };
 		5A61EAB919E7770D00CC7A69 /* KBInteractiveTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A61EAB819E7770D00CC7A69 /* KBInteractiveTextView.m */; };
+		6DE2971419E85ADF0042FC21 /* DAKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2971319E85ADF0042FC21 /* DAKeyboardControl.m */; };
+		6DE2971719E880520042FC21 /* INUserViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2971619E880520042FC21 /* INUserViewTableViewCell.m */; };
+		6DE2971A19E88B750042FC21 /* INRecipientImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2971919E88B750042FC21 /* INRecipientImageTableViewCell.m */; };
+		6DE2971D19E88E680042FC21 /* INUserTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2971C19E88E680042FC21 /* INUserTextTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +47,14 @@
 		5A61EAAD19E774A500CC7A69 /* Keyboard_TestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Keyboard_TestTests.m; sourceTree = "<group>"; };
 		5A61EAB719E7770D00CC7A69 /* KBInteractiveTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBInteractiveTextView.h; sourceTree = "<group>"; };
 		5A61EAB819E7770D00CC7A69 /* KBInteractiveTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBInteractiveTextView.m; sourceTree = "<group>"; };
+		6DE2971219E85ADF0042FC21 /* DAKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAKeyboardControl.h; sourceTree = "<group>"; };
+		6DE2971319E85ADF0042FC21 /* DAKeyboardControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAKeyboardControl.m; sourceTree = "<group>"; };
+		6DE2971519E880520042FC21 /* INUserViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INUserViewTableViewCell.h; sourceTree = "<group>"; };
+		6DE2971619E880520042FC21 /* INUserViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INUserViewTableViewCell.m; sourceTree = "<group>"; };
+		6DE2971819E88B750042FC21 /* INRecipientImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INRecipientImageTableViewCell.h; sourceTree = "<group>"; };
+		6DE2971919E88B750042FC21 /* INRecipientImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INRecipientImageTableViewCell.m; sourceTree = "<group>"; };
+		6DE2971B19E88E680042FC21 /* INUserTextTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INUserTextTableViewCell.h; sourceTree = "<group>"; };
+		6DE2971C19E88E680042FC21 /* INUserTextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INUserTextTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,12 +96,19 @@
 		5A61EA9019E774A500CC7A69 /* Keyboard-Test */ = {
 			isa = PBXGroup;
 			children = (
+				6DE2971119E85ADF0042FC21 /* DAKeyboardControl */,
 				5A61EA9519E774A500CC7A69 /* AppDelegate.h */,
 				5A61EA9619E774A500CC7A69 /* AppDelegate.m */,
 				5A61EA9819E774A500CC7A69 /* ViewController.h */,
 				5A61EA9919E774A500CC7A69 /* ViewController.m */,
 				5A61EAB719E7770D00CC7A69 /* KBInteractiveTextView.h */,
 				5A61EAB819E7770D00CC7A69 /* KBInteractiveTextView.m */,
+				6DE2971519E880520042FC21 /* INUserViewTableViewCell.h */,
+				6DE2971619E880520042FC21 /* INUserViewTableViewCell.m */,
+				6DE2971819E88B750042FC21 /* INRecipientImageTableViewCell.h */,
+				6DE2971919E88B750042FC21 /* INRecipientImageTableViewCell.m */,
+				6DE2971B19E88E680042FC21 /* INUserTextTableViewCell.h */,
+				6DE2971C19E88E680042FC21 /* INUserTextTableViewCell.m */,
 				5A61EA9B19E774A500CC7A69 /* Main.storyboard */,
 				5A61EA9E19E774A500CC7A69 /* Images.xcassets */,
 				5A61EAA019E774A500CC7A69 /* LaunchScreen.xib */,
@@ -122,6 +141,15 @@
 				5A61EAAC19E774A500CC7A69 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6DE2971119E85ADF0042FC21 /* DAKeyboardControl */ = {
+			isa = PBXGroup;
+			children = (
+				6DE2971219E85ADF0042FC21 /* DAKeyboardControl.h */,
+				6DE2971319E85ADF0042FC21 /* DAKeyboardControl.m */,
+			);
+			path = DAKeyboardControl;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,7 +201,7 @@
 				TargetAttributes = {
 					5A61EA8D19E774A500CC7A69 = {
 						CreatedOnToolsVersion = 6.0;
-						DevelopmentTeam = 28CDE4D38N;
+						DevelopmentTeam = 9AG3DN6HJ5;
 					};
 					5A61EAA619E774A500CC7A69 = {
 						CreatedOnToolsVersion = 6.0;
@@ -226,7 +254,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A61EA9A19E774A500CC7A69 /* ViewController.m in Sources */,
+				6DE2971A19E88B750042FC21 /* INRecipientImageTableViewCell.m in Sources */,
+				6DE2971D19E88E680042FC21 /* INUserTextTableViewCell.m in Sources */,
+				6DE2971719E880520042FC21 /* INUserViewTableViewCell.m in Sources */,
 				5A61EAB919E7770D00CC7A69 /* KBInteractiveTextView.m in Sources */,
+				6DE2971419E85ADF0042FC21 /* DAKeyboardControl.m in Sources */,
 				5A61EA9719E774A500CC7A69 /* AppDelegate.m in Sources */,
 				5A61EA9419E774A500CC7A69 /* main.m in Sources */,
 			);
@@ -421,6 +453,7 @@
 				5A61EAB319E774A500CC7A69 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5A61EAB419E774A500CC7A69 /* Build configuration list for PBXNativeTarget "Keyboard-TestTests" */ = {
 			isa = XCConfigurationList;
@@ -429,6 +462,7 @@
 				5A61EAB619E774A500CC7A69 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

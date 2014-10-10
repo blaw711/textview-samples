@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>0C1DEDA0-91BA-49DD-A17C-3DB20AE6CA6C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Keyboard-Test</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>D5FF7CC4B567A415CBC858E439930A54D4C79CBF</key>
+		<string>https://github.com/blaw711/textview-samples.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Keyboard-Test.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>D5FF7CC4B567A415CBC858E439930A54D4C79CBF</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/blaw711/textview-samples.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>D5FF7CC4B567A415CBC858E439930A54D4C79CBF</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D5FF7CC4B567A415CBC858E439930A54D4C79CBF</string>
+			<key>IDESourceControlWCCName</key>
+			<string>textview-samples</string>
+		</dict>
+	</array>
+</dict>
+</plist>
