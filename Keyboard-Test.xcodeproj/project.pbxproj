@@ -14,6 +14,7 @@
 		5A61EA9F19E774A500CC7A69 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A61EA9E19E774A500CC7A69 /* Images.xcassets */; };
 		5A61EAA219E774A500CC7A69 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A61EAA019E774A500CC7A69 /* LaunchScreen.xib */; };
 		5A61EAAE19E774A500CC7A69 /* Keyboard_TestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A61EAAD19E774A500CC7A69 /* Keyboard_TestTests.m */; };
+		5A61EAB919E7770D00CC7A69 /* KBInteractiveTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A61EAB819E7770D00CC7A69 /* KBInteractiveTextView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,8 @@
 		5A61EAA719E774A500CC7A69 /* Keyboard-TestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Keyboard-TestTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A61EAAC19E774A500CC7A69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A61EAAD19E774A500CC7A69 /* Keyboard_TestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Keyboard_TestTests.m; sourceTree = "<group>"; };
+		5A61EAB719E7770D00CC7A69 /* KBInteractiveTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBInteractiveTextView.h; sourceTree = "<group>"; };
+		5A61EAB819E7770D00CC7A69 /* KBInteractiveTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBInteractiveTextView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +88,8 @@
 				5A61EA9619E774A500CC7A69 /* AppDelegate.m */,
 				5A61EA9819E774A500CC7A69 /* ViewController.h */,
 				5A61EA9919E774A500CC7A69 /* ViewController.m */,
+				5A61EAB719E7770D00CC7A69 /* KBInteractiveTextView.h */,
+				5A61EAB819E7770D00CC7A69 /* KBInteractiveTextView.m */,
 				5A61EA9B19E774A500CC7A69 /* Main.storyboard */,
 				5A61EA9E19E774A500CC7A69 /* Images.xcassets */,
 				5A61EAA019E774A500CC7A69 /* LaunchScreen.xib */,
@@ -168,6 +173,7 @@
 				TargetAttributes = {
 					5A61EA8D19E774A500CC7A69 = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = 28CDE4D38N;
 					};
 					5A61EAA619E774A500CC7A69 = {
 						CreatedOnToolsVersion = 6.0;
@@ -220,6 +226,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A61EA9A19E774A500CC7A69 /* ViewController.m in Sources */,
+				5A61EAB919E7770D00CC7A69 /* KBInteractiveTextView.m in Sources */,
 				5A61EA9719E774A500CC7A69 /* AppDelegate.m in Sources */,
 				5A61EA9419E774A500CC7A69 /* main.m in Sources */,
 			);
@@ -343,6 +350,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Keyboard-Test/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -353,6 +361,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Keyboard-Test/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
