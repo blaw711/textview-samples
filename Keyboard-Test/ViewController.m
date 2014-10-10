@@ -19,6 +19,8 @@
 
 @property (nonatomic, strong) NSNumber *keyboardHeight;
 
+@property (nonatomic, strong) UIToolbar *toolBar;
+
 @end
 
 @implementation ViewController
@@ -26,11 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.textView = [[KBInteractiveTextView alloc] init];
-    self.textView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.textView.delegate = self;
-//    self.textView.textView.inputAccessoryView = self.textView;
-    [self.view addSubview:self.textView];
+    
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -43,15 +41,12 @@
     [self.view addConstraint:self.tableViewHeight];
 
     
-    self.textViewBottomConstraint = [NSLayoutConstraint constraintWithItem:self.textView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1 constant:0.0];
-    [self.view addConstraint:self.textViewBottomConstraint];
-    
     
     //[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_textView(==40)]|" options:0 metrics:0 views:NSDictionaryOfVariableBindings(_textView)]];
-    NSDictionary *views = NSDictionaryOfVariableBindings(_textView, _tableView);
+    NSDictionary *views = NSDictionaryOfVariableBindings(_tableView);
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_tableView]|" options:0 metrics:0 views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_tableView]" options:0 metrics:0 views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_textView]|" options:0 metrics:0 views:views]];
+    
     // Do any additional setup after loading the view, typically from a nib.
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -162,19 +157,33 @@
 }
 
 - (UIView *)inputAccessoryView {
-    //if (!inputAccessoryView) {
-        CGRect accessFrame = CGRectMake(0.0, 0.0, 768.0, 77.0);
-        UIView *inputAccessoryView = [[UIView alloc] initWithFrame:accessFrame];
-        inputAccessoryView.backgroundColor = [UIColor blueColor];
-        UIButton *compButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        compButton.frame = CGRectMake(313.0, 20.0, 158.0, 37.0);
-        [compButton setTitle: @"Word Completions" forState:UIControlStateNormal];
-        [compButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-     //   [compButton addTarget:self action:@selector(completeCurrentWord:)
-           //  forControlEvents:UIControlEventTouchUpInside];
-        [inputAccessoryView addSubview:compButton];
-    //}
-    return inputAccessoryView;
+//    //if (!inputAccessoryView) {
+    if (!self.toolBar) {
+        self.toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+        self.textView = [[KBInteractiveTextView alloc] init];
+        self.textView.translatesAutoresizingMaskIntoConstraints = NO;
+        self.textView.delegate = self;
+        //    self.textView.textView.inputAccessoryView = self.textView;
+        [self.toolBar addSubview:self.textView];
+        
+        
+        
+        [self.toolBar addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_textView]|" options:0 metrics:0 views:NSDictionaryOfVariableBindings(_textView)]];
+        [self.toolBar addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_textView]|" options:0 metrics:0 views:NSDictionaryOfVariableBindings(_textView)]];
+    }
+    return self.toolBar;
+////        CGRect accessFrame = CGRectMake(0.0, 0.0, 320, 77.0);
+////        UIView *inputAccessoryView = [[UIView alloc] initWithFrame:accessFrame];
+////        inputAccessoryView.backgroundColor = [UIColor blueColor];
+////        UIButton *compButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+////        compButton.frame = CGRectMake(0.0, 20.0, 158.0, 37.0);
+////        [compButton setTitle: @"Word Completions" forState:UIControlStateNormal];
+////        [compButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+////     //   [compButton addTarget:self action:@selector(completeCurrentWord:)
+////           //  forControlEvents:UIControlEventTouchUpInside];
+////        [inputAccessoryView addSubview:compButton];
+//    //}
+//    return inputAccessoryView;
 }
 
 //- (UIView *)inputAccessoryView{
@@ -184,10 +193,10 @@
 //    
 //}
 //
-//-(BOOL)canBecomeFirstResponder
-//{
-//    return YES;
-//}
+-(BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
 
 
 
