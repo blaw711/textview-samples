@@ -23,7 +23,6 @@
 {
     self = [super init];
     if (self) {
-        self.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.6];
         
         self.textView = [[UITextView alloc] init];
         self.textView.translatesAutoresizingMaskIntoConstraints = NO;
