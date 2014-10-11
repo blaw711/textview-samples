@@ -10,6 +10,7 @@
 
 @interface INUserTextTableViewCell ()
 
+@property (nonatomic, strong) UIView *backgroundView;
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic, strong) NSLayoutConstraint *labelWidthConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *labelHeightConstraint;
@@ -24,35 +25,39 @@
     
     if (self) {
         
-        UIView *holdingView = [[UIView alloc] init];
-        holdingView.translatesAutoresizingMaskIntoConstraints = NO;
-        holdingView.backgroundColor = [UIColor colorWithRed:.2 green:.2 blue:.5 alpha:0.4];
-        holdingView.layer.borderColor = [[UIColor blueColor] colorWithAlphaComponent:0.3].CGColor;
-        holdingView.layer.borderWidth = 2.0f;
-        holdingView.layer.cornerRadius = 25.0f;
-        holdingView.clipsToBounds = YES;
-        [self.contentView addSubview:holdingView];
-        
-        self.labelWidthConstraint = [NSLayoutConstraint constraintWithItem:holdingView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:0];
-        [self.contentView addConstraint:self.labelWidthConstraint];
-        self.labelHeightConstraint = [NSLayoutConstraint constraintWithItem:holdingView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:0];
-        [self.contentView addConstraint:self.labelHeightConstraint];
-        
-        NSDictionary *views = NSDictionaryOfVariableBindings(holdingView);
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[holdingView]" options:0 metrics:0 views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[holdingView]-10-|" options:0 metrics:0 views:views]];
+        self.backgroundView = [[UIView alloc] init];
+        self.backgroundView.translatesAutoresizingMaskIntoConstraints = NO;
+        self.backgroundView.backgroundColor = [UIColor colorWithRed:.2 green:.2 blue:.5 alpha:0.4];
+        self.backgroundView.layer.borderColor = [[UIColor blueColor] colorWithAlphaComponent:0.3].CGColor;
+        self.backgroundView.layer.borderWidth = 2.0f;
+        self.backgroundView.layer.cornerRadius = 15.0f;
+        self.backgroundView.tag = 8;
+        self.backgroundView.clipsToBounds = YES;
+        [self.contentView addSubview:self.backgroundView];
         
         self.label = [[UILabel alloc] init];
         self.label.translatesAutoresizingMaskIntoConstraints = NO;
         self.label.textColor = [UIColor whiteColor];
-        self.label.numberOfLines = 100;
+        self.label.numberOfLines = 0;
         self.label.text = nil;
-        self.label.textAlignment = NSTextAlignmentCenter;
-        [holdingView addSubview:self.label];
+        self.label.textAlignment = NSTextAlignmentLeft;
+        [self.backgroundView addSubview:self.label];
         
-        views = NSDictionaryOfVariableBindings(_label);
-        [holdingView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[_label]-5-|" options:0 metrics:0 views:views]];
-        [holdingView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[_label]-5-|" options:0 metrics:0 views:views]];
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeft multiplier:1 constant:5]];
+        
+         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:4.5]];
+        
+         [self.backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.label attribute:NSLayoutAttributeWidth multiplier:1 constant:30]];
+        
+         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1 constant:-4.5]];
+        
+         [self.backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:self.label attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.backgroundView attribute:NSLayoutAttributeCenterX multiplier:1 constant:3]];
+        
+         [self.backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:self.label attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.backgroundView attribute:NSLayoutAttributeCenterY multiplier:1 constant:-0.5]];
+        
+        self.label.preferredMaxLayoutWidth = 218;
+        
+         [self.backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:self.label attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.backgroundView attribute:NSLayoutAttributeHeight multiplier:1 constant:-15]];
     }
     return self;
 }
@@ -63,14 +68,34 @@
     // Configure the view for the selected state
 }
 
-- (void)prepareWithText:(NSString *)text
+- (void)prepareWithText:(NSString *)text incoming:(BOOL)incoming
 {
     self.label.text = text;
-    self.labelWidthConstraint.constant = MIN(self.label.intrinsicContentSize.width + 20, [UIScreen mainScreen].bounds.size.width / 1.5);
-    self.labelHeightConstraint.constant = MAX(self.label.intrinsicContentSize.height + 20, 100);
-    self.label.layer.cornerRadius = 15.0;
     
-    [self.contentView layoutIfNeeded];
+    NSLayoutAttribute layoutAttribute;
+    CGFloat layoutConstant;
+    
+    if (incoming) {
+        self.backgroundView.backgroundColor = [UIColor colorWithRed:.2 green:.2 blue:.5 alpha:0.4];
+        self.backgroundView.layer.borderColor = [[UIColor blueColor] colorWithAlphaComponent:0.3].CGColor;
+        layoutAttribute = NSLayoutAttributeLeft;
+        layoutConstant = 10;
+    } else {
+        self.backgroundView.backgroundColor = [UIColor colorWithRed:.5 green:.2 blue:.2 alpha:0.4];
+        self.backgroundView.layer.borderColor = [[UIColor redColor] colorWithAlphaComponent:0.3].CGColor;
+        layoutAttribute = NSLayoutAttributeRight;
+        layoutConstant = -10;
+    }
+    NSLayoutConstraint *layoutConstraint = self.backgroundView.constraints[1];
+    layoutConstraint.constant = -layoutConstraint.constant;
+    
+    NSArray *constraints = self.contentView.constraints;
+    NSUInteger indexOfConstraint = [constraints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return ((UIView *)[obj firstItem]).tag == 8 && ([obj firstAttribute] == NSLayoutAttributeLeft || [obj firstAttribute] == NSLayoutAttributeRight);
+    }];
+
+    [self.contentView removeConstraint:constraints[indexOfConstraint]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundView attribute:layoutAttribute relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:layoutAttribute multiplier:1 constant:layoutConstant]];
 }
 
 - (void)prepareForReuse

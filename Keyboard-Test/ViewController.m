@@ -12,6 +12,7 @@
 #import "INUserViewTableViewCell.h"
 #import "INRecipientImageTableViewCell.h"
 #import "INUserTextTableViewCell.h"
+#import "INImageTableViewCell.h"
 
 @interface ViewController () <UITableViewDataSource, UITableViewDelegate, KBInteractiveTextViewDelegate>
 
@@ -27,6 +28,9 @@
 @property (nonatomic, strong) NSNumber *keyboardHeight;
 
 @property (nonatomic, strong) UIToolbar *toolBar;
+
+@property (nonatomic, strong) NSMutableArray *userArray;
+@property (nonatomic, strong) NSMutableArray *recipientArray;
 
 @end
 
@@ -44,12 +48,18 @@
     self.tableView.dataSource = self;
     self.tableView.scrollsToTop = YES;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.estimatedRowHeight = 44.0f;
     [self.view addSubview:self.tableView];
     
     self.toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f,
                                                                      self.view.bounds.size.height - 40.0f,
                                                                      self.view.bounds.size.width,
                                                                      40.0f)];
+    
+    self.userArray = @[@"dfuwbenfiwbjenfiwebfwleifjbwlefjbwielfblwefjbnwleifjnlweifj", @"dfjnwkejfbnw wefjbknwefw fw weweew wewew dfwef wef wef wef we fwe f wef ewf ef", @"wdfjbwnef wef wef ewf ew fe wfwe f wef wef ewf we f wef wef  few", @"dfwefwef wedwedw"].mutableCopy;
+    self.recipientArray = @[@"fwonefenwjkenewfnjefwjkn", @"ewdjed wew qwr0etuopi 093ry23bieuqwd 2f3hiowfe", @"dfibwebfwe sad cdfv eweqw", @"wefjhwefjkwefh"].mutableCopy;
+    
+    self.toolBar.translucent = YES;
     self.toolBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.toolBar];
     
@@ -192,45 +202,64 @@
     return 30;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.row % 3 == 0) {
-        return 70;
-    } else if(indexPath.row % 3 == 2){
-        return 70;
-    } else {
-        return 300;
-    }
-
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    if (indexPath.row % 4 == 0) {
+//        return 70;
+//    } else if(indexPath.row % 4 == 1){
+//        return 300;
+//    } else if(indexPath.row % 4 == 2){
+//        return 70;
+//    } else {
+//        return 300;
+//    }
+//
+//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row % 3 == 0) {
-        INUserViewTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"youimageCell"];
+    if (indexPath.row % 5 == 0) {
+        INUserViewTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"kimageCell"];
         
         if (!cell) {
-            cell = [[INUserViewTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"youimageCell"];
+            cell = [[INUserViewTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"kimageCell"];
         }
-        [cell prepareWithImage:[UIImage imageNamed:@"puppy"] name:@"Ron Bergundy"];
+        [cell prepareWithImage:[UIImage imageNamed:@"pup"] name:@"Ron Bergundy"];
         return cell;
-    } else if(indexPath.row % 3 == 2){
-        INRecipientImageTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"imageCell"];
-        
-        if (!cell) {
-            cell = [[INRecipientImageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"imageCell"];
-        }
-        [cell prepareWithImage:[UIImage imageNamed:@"puppy"] name:@"Place Holder"];
-        return cell;
-    } else {
+    } else if (indexPath.row % 5 == 1){
         INUserTextTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"youtextimageCell"];
         if (!cell) {
             cell = [[INUserTextTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"youtextimageCell"];
         }
-        [cell prepareWithText:@"This is a message let's see how it looks This is a message let's see how it looksThis is a message let's see how it looksThis is a message let's see how it looksThis is a message let's see how it looksThis is a message let's see how it looksThis is a message let's see how it looksThis is a message let's see how it looksThis is a message let's see how it looks"];
+        [cell prepareWithText:self.userArray[indexPath.row % 3] incoming:NO];
+        return cell;
+    } else if(indexPath.row % 5 == 2){
+        INRecipientImageTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"imageCell"];
+
+        if (!cell) {
+            cell = [[INRecipientImageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"imageCell"];
+        }
+        [cell prepareWithImage:[UIImage imageNamed:@"puppy"] name:@"Bob Law"];
+        return cell;
+    } else if(indexPath.row % 5 == 3){
+        INUserTextTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"youtextimageCell"];
+        if (!cell) {
+            cell = [[INUserTextTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"youtextimageCell"];
+        }
+        [cell prepareWithText:self.recipientArray[indexPath.row % 3] incoming:YES];
         return cell;
 
+    } else {
+        INImageTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"realimageCell"];
+        if (!cell) {
+            cell = [[INImageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"realimageCell"];
+        }
+        NSLog(@"%ld", indexPath.row % 2);
+        [cell prepareWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"puppy%ld", indexPath.row % 3]]];
+        return cell;
+        
     }
+
     //cell.textLabel.text = @"placeholder";
     
     //[self configureCell:cell forIndexPath:indexPath];

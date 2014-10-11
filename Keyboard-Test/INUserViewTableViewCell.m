@@ -57,11 +57,11 @@
         
         NSDictionary *views = NSDictionaryOfVariableBindings(_chatImageView, _label);
         [profileView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_label]-3-[_chatImageView(==40)]-5-|" options:0 metrics:nil views:views]];
-        [profileView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[_chatImageView]-5-|" options:0 metrics:0 views:views]];
+        [profileView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[_chatImageView(==40)]-5-|" options:0 metrics:0 views:views]];
         [profileView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[_label]-5-|" options:0 metrics:0 views:views]];
         views = NSDictionaryOfVariableBindings(profileView);
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[profileView]-10-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[profileView(==50)]" options:0 metrics:0 views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[profileView]-5-|" options:0 metrics:0 views:views]];
     }
     
     return self;

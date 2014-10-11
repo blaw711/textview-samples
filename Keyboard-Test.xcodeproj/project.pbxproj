@@ -15,6 +15,7 @@
 		5A61EAA219E774A500CC7A69 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A61EAA019E774A500CC7A69 /* LaunchScreen.xib */; };
 		5A61EAAE19E774A500CC7A69 /* Keyboard_TestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A61EAAD19E774A500CC7A69 /* Keyboard_TestTests.m */; };
 		5A61EAB919E7770D00CC7A69 /* KBInteractiveTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A61EAB819E7770D00CC7A69 /* KBInteractiveTextView.m */; };
+		5A61EABC19E8E8DB00CC7A69 /* INImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A61EABB19E8E8DB00CC7A69 /* INImageTableViewCell.m */; };
 		6DE2971419E85ADF0042FC21 /* DAKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2971319E85ADF0042FC21 /* DAKeyboardControl.m */; };
 		6DE2971719E880520042FC21 /* INUserViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2971619E880520042FC21 /* INUserViewTableViewCell.m */; };
 		6DE2971A19E88B750042FC21 /* INRecipientImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2971919E88B750042FC21 /* INRecipientImageTableViewCell.m */; };
@@ -47,6 +48,8 @@
 		5A61EAAD19E774A500CC7A69 /* Keyboard_TestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Keyboard_TestTests.m; sourceTree = "<group>"; };
 		5A61EAB719E7770D00CC7A69 /* KBInteractiveTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBInteractiveTextView.h; sourceTree = "<group>"; };
 		5A61EAB819E7770D00CC7A69 /* KBInteractiveTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBInteractiveTextView.m; sourceTree = "<group>"; };
+		5A61EABA19E8E8DB00CC7A69 /* INImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INImageTableViewCell.h; sourceTree = "<group>"; };
+		5A61EABB19E8E8DB00CC7A69 /* INImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INImageTableViewCell.m; sourceTree = "<group>"; };
 		6DE2971219E85ADF0042FC21 /* DAKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAKeyboardControl.h; sourceTree = "<group>"; };
 		6DE2971319E85ADF0042FC21 /* DAKeyboardControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAKeyboardControl.m; sourceTree = "<group>"; };
 		6DE2971519E880520042FC21 /* INUserViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INUserViewTableViewCell.h; sourceTree = "<group>"; };
@@ -109,6 +112,8 @@
 				6DE2971919E88B750042FC21 /* INRecipientImageTableViewCell.m */,
 				6DE2971B19E88E680042FC21 /* INUserTextTableViewCell.h */,
 				6DE2971C19E88E680042FC21 /* INUserTextTableViewCell.m */,
+				5A61EABA19E8E8DB00CC7A69 /* INImageTableViewCell.h */,
+				5A61EABB19E8E8DB00CC7A69 /* INImageTableViewCell.m */,
 				5A61EA9B19E774A500CC7A69 /* Main.storyboard */,
 				5A61EA9E19E774A500CC7A69 /* Images.xcassets */,
 				5A61EAA019E774A500CC7A69 /* LaunchScreen.xib */,
@@ -201,7 +206,7 @@
 				TargetAttributes = {
 					5A61EA8D19E774A500CC7A69 = {
 						CreatedOnToolsVersion = 6.0;
-						DevelopmentTeam = 9AG3DN6HJ5;
+						DevelopmentTeam = 28CDE4D38N;
 					};
 					5A61EAA619E774A500CC7A69 = {
 						CreatedOnToolsVersion = 6.0;
@@ -261,6 +266,7 @@
 				6DE2971419E85ADF0042FC21 /* DAKeyboardControl.m in Sources */,
 				5A61EA9719E774A500CC7A69 /* AppDelegate.m in Sources */,
 				5A61EA9419E774A500CC7A69 /* main.m in Sources */,
+				5A61EABC19E8E8DB00CC7A69 /* INImageTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
