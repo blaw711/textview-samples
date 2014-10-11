@@ -29,7 +29,7 @@
         
         UIView *profileView = [[UIView alloc] init];
         profileView.translatesAutoresizingMaskIntoConstraints = NO;
-        profileView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.4];
+        profileView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.6];
         profileView.layer.borderColor = [UIColor lightGrayColor].CGColor;
         profileView.layer.borderWidth = 2.0f;
         profileView.layer.cornerRadius = 25.0f;
@@ -58,11 +58,11 @@
         
         NSDictionary *views = NSDictionaryOfVariableBindings(_chatImageView, _label);
         [profileView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[_chatImageView(==40)]-3-[_label]" options:0 metrics:nil views:views]];
-        [profileView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[_chatImageView]-5-|" options:0 metrics:0 views:views]];
+        [profileView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[_chatImageView(==40)]-5-|" options:0 metrics:0 views:views]];
         [profileView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[_label]-5-|" options:0 metrics:0 views:views]];
         views = NSDictionaryOfVariableBindings(profileView);
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[profileView]" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[profileView(==50)]" options:0 metrics:0 views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[profileView]-5-|" options:0 metrics:0 views:views]];
     }
     
     return self;

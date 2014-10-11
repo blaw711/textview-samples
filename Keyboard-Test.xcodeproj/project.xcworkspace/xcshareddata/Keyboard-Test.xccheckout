@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>0C1DEDA0-91BA-49DD-A17C-3DB20AE6CA6C</string>
+	<string>A47D2564-9374-40FB-B1A0-0DBF0644237C</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Keyboard-Test</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -34,7 +34,7 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>D5FF7CC4B567A415CBC858E439930A54D4C79CBF</string>
 			<key>IDESourceControlWCCName</key>
-			<string>textview-samples</string>
+			<string>Keyboard-Test</string>
 		</dict>
 	</array>
 </dict>
