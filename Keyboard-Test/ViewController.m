@@ -73,6 +73,7 @@
     [self.toolBar addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_textView]|" options:0 metrics:0 views:views]];
     [self.toolBar addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_textView]|" options:0 metrics:0 views:views]];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRotate) name:UIDeviceOrientationDidChangeNotification object:nil];
     
 //    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10.0f,
 //                                                                           6.0f,
@@ -124,6 +125,13 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)didRotate
+{
+//    self.tableView.scrollEnabled = NO;
+//    [self.tableView reloadData];
+//    self.tableView.scrollEnabled = YES;
 }
 
 - (void)keyBoardWillShow:(NSNotification *)notification
@@ -255,7 +263,7 @@
             cell = [[INImageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"realimageCell"];
         }
         NSLog(@"%ld", indexPath.row % 2);
-        [cell prepareWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"puppy%ld", indexPath.row % 3]]];
+        [cell prepareWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"puppy%ld", indexPath.row % 4]]];
         return cell;
         
     }
@@ -264,6 +272,11 @@
     
     //[self configureCell:cell forIndexPath:indexPath];
     
+}
+
+- (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
 
 - (void)configureCell:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath
