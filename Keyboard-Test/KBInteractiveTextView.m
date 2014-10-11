@@ -29,6 +29,7 @@
         self.textView.layer.cornerRadius = 10.0f;
         self.textView.layer.borderColor = [UIColor lightGrayColor].CGColor;
         self.textView.layer.borderWidth = 2.0f;
+        self.textView.keyboardType = UIKeyboardTypeWebSearch;
         self.textView.textContainerInset = UIEdgeInsetsMake(5, 2, 5, 2);
         self.textView.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:18.0f];
         self.textView.delegate = self;

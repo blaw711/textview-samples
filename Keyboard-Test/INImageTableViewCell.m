@@ -46,6 +46,11 @@
 
 - (void)prepareWithImage:(UIImage *)image
 {
+    if (image.size.width >= CGRectGetWidth([UIScreen mainScreen].bounds)){
+        CGFloat size = image.size.width / (CGRectGetWidth([UIScreen mainScreen].bounds) - 20);
+        NSLog(@"%f", size);
+        image = [UIImage imageWithCGImage:[image CGImage] scale:(image.scale * size) orientation:image.imageOrientation];
+    }
     self.chatImageView.image = image;
 }
 
