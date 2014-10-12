@@ -14,6 +14,9 @@
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic, strong) NSLayoutConstraint *labelWidthConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *labelHeightConstraint;
+@property (nonatomic, strong) NSNumber *isPrivate;
+
+@property (nonatomic, strong) UIVisualEffectView *blurView;
 
 @end
 
@@ -24,6 +27,8 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
     if (self) {
+        
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         self.backgroundView = [[UIView alloc] init];
         self.backgroundView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -58,6 +63,20 @@
         self.label.preferredMaxLayoutWidth = 218;
         
          [self.backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:self.label attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.backgroundView attribute:NSLayoutAttributeHeight multiplier:1 constant:-15]];
+        
+        self.blurView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+        self.blurView.translatesAutoresizingMaskIntoConstraints = NO;
+        self.blurView.alpha = 0;
+        [self.backgroundView addSubview:self.blurView];
+        
+        [self.backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:self.blurView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.backgroundView attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+        [self.backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:self.blurView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.backgroundView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+        [self.backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:self.blurView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.backgroundView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+        [self.backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:self.blurView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.backgroundView attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
+        
+        UILongPressGestureRecognizer *gestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressRecognizer:)];
+        gestureRecognizer.minimumPressDuration = .35;
+        [self addGestureRecognizer:gestureRecognizer];
     }
     return self;
 }
@@ -68,9 +87,11 @@
     // Configure the view for the selected state
 }
 
-- (void)prepareWithText:(NSString *)text incoming:(BOOL)incoming
+- (void)prepareWithText:(NSString *)text incoming:(BOOL)incoming privacy:(BOOL)privacy
 {
     self.label.text = text;
+    
+    self.isPrivate = @(privacy);
     
     NSLayoutAttribute layoutAttribute;
     CGFloat layoutConstant;
@@ -96,6 +117,18 @@
 
     [self.contentView removeConstraint:constraints[indexOfConstraint]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundView attribute:layoutAttribute relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:layoutAttribute multiplier:1 constant:layoutConstant]];
+    
+    [UIView animateWithDuration:0.0 animations:^{
+        self.blurView.alpha = privacy ? 1.0f : 0.0f;
+    }];
+}
+- (void)longPressRecognizer:(UIGestureRecognizer *)gesture
+{
+    if (self.isPrivate.boolValue && gesture.state == UIGestureRecognizerStateBegan) {
+        self.blurView.alpha = 0;
+    } else if (self.isPrivate.boolValue && gesture.state == UIGestureRecognizerStateEnded){
+        self.blurView.alpha = 1;
+    }
 }
 
 - (void)prepareForReuse

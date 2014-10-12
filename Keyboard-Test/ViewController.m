@@ -14,7 +14,7 @@
 #import "INUserTextTableViewCell.h"
 #import "INImageTableViewCell.h"
 
-@interface ViewController () <UITableViewDataSource, UITableViewDelegate, KBInteractiveTextViewDelegate>
+@interface ViewController () <UITableViewDataSource, UITableViewDelegate, KBInteractiveTextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) KBInteractiveTextView *textView;
 @property (nonatomic, strong) NSLayoutConstraint *tableViewHeight;
@@ -32,12 +32,18 @@
 @property (nonatomic, strong) NSMutableArray *userArray;
 @property (nonatomic, strong) NSMutableArray *recipientArray;
 
+@property (nonatomic, strong) NSNumber *isPrivate;
+
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.navigationItem setTitle:@"Chat"];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
+    self.navigationController.navigationBar.translucent = NO;
     
     self.tableView  = [[UITableView alloc] initWithFrame:CGRectMake(0.0f,
                                                                            0.0f,
@@ -55,6 +61,8 @@
                                                                      self.view.bounds.size.height - 40.0f,
                                                                      self.view.bounds.size.width,
                                                                      40.0f)];
+    
+    self.isPrivate = @(NO);
     
     self.userArray = @[@"dfuwbenfiwbjenfiwebfwleifjbwlefjbwielfblwefjbnwleifjnlweifj", @"dfjnwkejfbnw wefjbknwefw fw weweew wewew dfwef wef wef wef we fwe f wef ewf ef", @"wdfjbwnef wef wef ewf ew fe wfwe f wef wef ewf we f wef wef  few", @"dfwefwef wedwedw"].mutableCopy;
     self.recipientArray = @[@"fwonefenwjkenewfnjefwjkn", @"ewdjed wew qwr0etuopi 093ry23bieuqwd 2f3hiowfe", @"dfibwebfwe sad cdfv eweqw", @"wefjhwefjkwefh"].mutableCopy;
@@ -122,6 +130,19 @@
     
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+  //  [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:49 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+}
+
+- (void) viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+    
+    NSIndexPath *lastIndexPath = [NSIndexPath indexPathForRow:49 inSection:0];
+    [self.tableView scrollToRowAtIndexPath:lastIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -140,7 +161,7 @@
     //keyboardSlideDuration is an instance variable so we can keep it around to use in the "dismiss keyboard" animation.
     CGRect keyboardFrame = [[userInfo objectForKey: UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:29 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:49 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     self.keyboardHeight = @(keyboardFrame.size.height);
 }
 
@@ -203,26 +224,32 @@
 
 }
 
+- (void)textView:(KBInteractiveTextView *)textView didPressCameraButton:(BOOL)pressed
+{
+    UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
+    pickerController.delegate = self;
+
+    UIAlertController *alertView = [[UIAlertController alloc] init];
+    [alertView addAction:[UIAlertAction actionWithTitle:@"Take Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+        pickerController.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
+        pickerController.showsCameraControls = YES;
+        [self presentViewController:pickerController animated:YES completion:nil];
+    }]];
+    [alertView addAction:[UIAlertAction actionWithTitle:@"Choose Existing" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentViewController:pickerController animated:YES completion:nil];
+    }]];
+    [alertView addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler:nil]];
+    [self presentViewController:alertView animated:YES completion:nil];
+}
+
 #pragma mark - UITableViewDelegate && UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 30;
+    return 50;
 }
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    if (indexPath.row % 4 == 0) {
-//        return 70;
-//    } else if(indexPath.row % 4 == 1){
-//        return 300;
-//    } else if(indexPath.row % 4 == 2){
-//        return 70;
-//    } else {
-//        return 300;
-//    }
-//
-//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -239,7 +266,7 @@
         if (!cell) {
             cell = [[INUserTextTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"youtextimageCell"];
         }
-        [cell prepareWithText:self.userArray[indexPath.row % 3] incoming:NO];
+        [cell prepareWithText:self.userArray[indexPath.row % 3] incoming:NO privacy:self.isPrivate.boolValue];
         return cell;
     } else if(indexPath.row % 5 == 2){
         INRecipientImageTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"imageCell"];
@@ -254,7 +281,7 @@
         if (!cell) {
             cell = [[INUserTextTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"youtextimageCell"];
         }
-        [cell prepareWithText:self.recipientArray[indexPath.row % 3] incoming:YES];
+        [cell prepareWithText:self.recipientArray[indexPath.row % 3] incoming:YES privacy:self.isPrivate.boolValue];
         return cell;
 
     } else {
@@ -262,16 +289,9 @@
         if (!cell) {
             cell = [[INImageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"realimageCell"];
         }
-        NSLog(@"%ld", indexPath.row % 2);
-        [cell prepareWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"puppy%ld", indexPath.row % 4]]];
+        [cell prepareWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"puppy%ld", indexPath.row % 4]] privacy:self.isPrivate.boolValue incoming:indexPath.row % 2 == 0 ? YES : NO];
         return cell;
-        
     }
-
-    //cell.textLabel.text = @"placeholder";
-    
-    //[self configureCell:cell forIndexPath:indexPath];
-    
 }
 
 - (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath
@@ -279,9 +299,18 @@
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
 
-- (void)configureCell:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath
+- (BOOL)canBecomeFirstResponder
 {
-    cell = (INUserViewTableViewCell *)cell;
+    return YES;
+}
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
+    if (motion == UIEventSubtypeMotionShake)
+    {
+        self.isPrivate = [NSNumber numberWithBool:!self.isPrivate.boolValue];
+        //r[self.tableView reloadData];
+    } 
 }
 
 @end
