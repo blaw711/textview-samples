@@ -10,6 +10,6 @@
 
 @interface INImageTableViewCell : UITableViewCell
 
-- (void)prepareWithImage:(UIImage *)image;
+- (void)prepareWithImage:(UIImage *)image privacy:(BOOL)privacy incoming:(BOOL)incoming;
 
 @end

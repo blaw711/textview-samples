@@ -13,6 +13,7 @@
 @protocol KBInteractiveTextViewDelegate <NSObject>
 
 - (void)textView:(KBInteractiveTextView *)textView didChangeToHeight:(CGFloat)height;
+- (void)textView:(KBInteractiveTextView *)textView didPressCameraButton:(BOOL)pressed;
 
 @end
 

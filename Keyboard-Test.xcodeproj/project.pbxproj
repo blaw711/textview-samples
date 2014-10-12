@@ -16,6 +16,7 @@
 		5A61EAAE19E774A500CC7A69 /* Keyboard_TestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A61EAAD19E774A500CC7A69 /* Keyboard_TestTests.m */; };
 		5A61EAB919E7770D00CC7A69 /* KBInteractiveTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A61EAB819E7770D00CC7A69 /* KBInteractiveTextView.m */; };
 		5A61EABC19E8E8DB00CC7A69 /* INImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A61EABB19E8E8DB00CC7A69 /* INImageTableViewCell.m */; };
+		5A61EABE19E9FCC800CC7A69 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A61EABD19E9FCC800CC7A69 /* AVKit.framework */; };
 		6DE2971419E85ADF0042FC21 /* DAKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2971319E85ADF0042FC21 /* DAKeyboardControl.m */; };
 		6DE2971719E880520042FC21 /* INUserViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2971619E880520042FC21 /* INUserViewTableViewCell.m */; };
 		6DE2971A19E88B750042FC21 /* INRecipientImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2971919E88B750042FC21 /* INRecipientImageTableViewCell.m */; };
@@ -50,6 +51,7 @@
 		5A61EAB819E7770D00CC7A69 /* KBInteractiveTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBInteractiveTextView.m; sourceTree = "<group>"; };
 		5A61EABA19E8E8DB00CC7A69 /* INImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INImageTableViewCell.h; sourceTree = "<group>"; };
 		5A61EABB19E8E8DB00CC7A69 /* INImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INImageTableViewCell.m; sourceTree = "<group>"; };
+		5A61EABD19E9FCC800CC7A69 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		6DE2971219E85ADF0042FC21 /* DAKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAKeyboardControl.h; sourceTree = "<group>"; };
 		6DE2971319E85ADF0042FC21 /* DAKeyboardControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAKeyboardControl.m; sourceTree = "<group>"; };
 		6DE2971519E880520042FC21 /* INUserViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INUserViewTableViewCell.h; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A61EABE19E9FCC800CC7A69 /* AVKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +84,7 @@
 		5A61EA8519E774A500CC7A69 = {
 			isa = PBXGroup;
 			children = (
+				5A61EABD19E9FCC800CC7A69 /* AVKit.framework */,
 				5A61EA9019E774A500CC7A69 /* Keyboard-Test */,
 				5A61EAAA19E774A500CC7A69 /* Keyboard-TestTests */,
 				5A61EA8F19E774A500CC7A69 /* Products */,
@@ -388,6 +392,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Keyboard-Test/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -399,6 +404,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Keyboard-Test/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

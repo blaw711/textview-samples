@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong, readwrite) NSLayoutConstraint *heightConstraint;
 
+
 @end
 
 @implementation KBInteractiveTextView
@@ -37,18 +38,24 @@
         
         self.button = [UIButton buttonWithType:UIButtonTypeCustom];
         self.button.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.button setTitle:@"Send" forState:UIControlStateNormal];
-        [self.button setTitleColor:[UIColor colorWithRed:15.0/255.0 green:98.0/255.0 blue:155.0/255.0 alpha:1] forState:UIControlStateNormal];
+        [self.button setImage:[UIImage imageNamed:@"camera"] forState:UIControlStateNormal];
+        [self.button setTintColor:[UIColor grayColor]];
+        [self.button addTarget:self action:@selector(cameraButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.button];
         
         NSDictionary *views = NSDictionaryOfVariableBindings(_textView, _button);
         NSDictionary *metrics = @{@"buttonWidth" : @(self.button.intrinsicContentSize.width)};
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[_textView]-5-[_button(==buttonWidth)]-5-|" options:0 metrics:metrics views:views]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[_button(==buttonWidth)]-5-[_textView]-5-|" options:0 metrics:metrics views:views]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[_textView]-5-|" options:0 metrics:0 views:views]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_button(==30)]-5-|" options:0 metrics:0 views:views]];
     }
     
     return self;
+}
+
+- (void)cameraButtonPressed
+{
+    [self.delegate textView:self didPressCameraButton:YES];
 }
 
 - (void)textViewDidChange:(UITextView *)textView
@@ -80,13 +87,15 @@
     //size of content, so we can set the frame of self
     CGFloat minHeight = 40;
     CGFloat maxHeight = 150;
-    NSInteger newSizeH = [self measureHeight];
+    NSInteger newSizeH = [self measureHeight] + 5;
     if (newSizeH < minHeight || !self.textView.text) {
         newSizeH = minHeight; //not smalles than minHeight
+        self.textView.scrollEnabled = NO;
 
     }
     else if (maxHeight && newSizeH > maxHeight) {
         newSizeH = maxHeight; // not taller than maxHeight
+        self.textView.scrollEnabled = YES;
     }
     [self resizeTextView:newSizeH];
     [self.delegate textView:self didChangeToHeight:newSizeH];

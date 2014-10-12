@@ -10,6 +10,6 @@
 
 @interface INUserTextTableViewCell : UITableViewCell
 
-- (void)prepareWithText:(NSString *)text incoming:(BOOL)incoming;
+- (void)prepareWithText:(NSString *)text incoming:(BOOL)incoming privacy:(BOOL)privacy;
 
 @end
