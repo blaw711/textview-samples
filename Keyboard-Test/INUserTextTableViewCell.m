@@ -7,16 +7,17 @@
 //
 
 #import "INUserTextTableViewCell.h"
+#import "TTTAttributedLabel.h"
 
 @interface INUserTextTableViewCell ()
 
 @property (nonatomic, strong) UIView *backgroundView;
-@property (nonatomic, strong) UILabel *label;
+@property (nonatomic, strong) TTTAttributedLabel *label;
 @property (nonatomic, strong) NSLayoutConstraint *labelWidthConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *labelHeightConstraint;
-@property (nonatomic, strong) NSNumber *isPrivate;
-
 @property (nonatomic, strong) UIVisualEffectView *blurView;
+@property (nonatomic, strong) UILabel *timeStamp;
+@property (nonatomic, strong) UIImageView *indicatorView;
 
 @end
 
@@ -32,35 +33,45 @@
         
         self.backgroundView = [[UIView alloc] init];
         self.backgroundView.translatesAutoresizingMaskIntoConstraints = NO;
-        self.backgroundView.backgroundColor = [UIColor colorWithRed:.2 green:.2 blue:.5 alpha:0.4];
-        self.backgroundView.layer.borderColor = [[UIColor blueColor] colorWithAlphaComponent:0.3].CGColor;
         self.backgroundView.layer.borderWidth = 2.0f;
         self.backgroundView.layer.cornerRadius = 15.0f;
         self.backgroundView.tag = 8;
         self.backgroundView.clipsToBounds = YES;
         [self.contentView addSubview:self.backgroundView];
         
-        self.label = [[UILabel alloc] init];
+        self.label = [[TTTAttributedLabel alloc] init];
         self.label.translatesAutoresizingMaskIntoConstraints = NO;
-        self.label.textColor = [UIColor whiteColor];
+        self.label.enabledTextCheckingTypes = NSTextCheckingTypeAddress | NSTextCheckingTypeDate | NSTextCheckingTypeLink;
         self.label.numberOfLines = 0;
         self.label.text = nil;
         self.label.textAlignment = NSTextAlignmentLeft;
         [self.backgroundView addSubview:self.label];
         
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeft multiplier:1 constant:5]];
+        self.indicatorView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dot"]];
+        self.indicatorView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.contentView addSubview:self.indicatorView];
+        
+        self.timeStamp = [[UILabel alloc] init];
+        self.timeStamp.translatesAutoresizingMaskIntoConstraints = NO;
+        self.timeStamp.numberOfLines = 2;
+        self.timeStamp.text = @"now";
+        self.timeStamp.textColor = [UIColor lightGrayColor];
+        self.timeStamp.font = [UIFont fontWithName:@"Helvetica-NeueThin" size:13.0f];
+        [self.contentView addSubview:self.timeStamp];
+        
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeft multiplier:1 constant:4.5]];
         
          [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:4.5]];
         
          [self.backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.label attribute:NSLayoutAttributeWidth multiplier:1 constant:30]];
         
-         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1 constant:-4.5]];
+         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.timeStamp attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
         
          [self.backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:self.label attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.backgroundView attribute:NSLayoutAttributeCenterX multiplier:1 constant:3]];
         
          [self.backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:self.label attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.backgroundView attribute:NSLayoutAttributeCenterY multiplier:1 constant:-0.5]];
         
-        self.label.preferredMaxLayoutWidth = 218;
+        self.label.preferredMaxLayoutWidth = CGRectGetWidth([UIScreen mainScreen].bounds) * .75;
         
          [self.backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:self.label attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.backgroundView attribute:NSLayoutAttributeHeight multiplier:1 constant:-15]];
         
@@ -74,9 +85,14 @@
         [self.backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:self.blurView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.backgroundView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
         [self.backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:self.blurView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.backgroundView attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
         
-        UILongPressGestureRecognizer *gestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressRecognizer:)];
-        gestureRecognizer.minimumPressDuration = .35;
-        [self addGestureRecognizer:gestureRecognizer];
+        
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.timeStamp attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-20]];
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.indicatorView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.backgroundView attribute:NSLayoutAttributeRight multiplier:1.0 constant:-2.5]];
+        
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.timeStamp attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.indicatorView attribute:NSLayoutAttributeLeft multiplier:1.0 constant:-6]];
+
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.indicatorView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.timeStamp attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+        
     }
     return self;
 }
@@ -97,13 +113,19 @@
     CGFloat layoutConstant;
     
     if (incoming) {
-        self.backgroundView.backgroundColor = [UIColor colorWithRed:.2 green:.2 blue:.5 alpha:0.4];
-        self.backgroundView.layer.borderColor = [[UIColor blueColor] colorWithAlphaComponent:0.3].CGColor;
+        self.backgroundView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3];
+        self.backgroundView.layer.borderColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.1].CGColor;
+        self.label.textColor = [UIColor blackColor];
+        self.label.textAlignment = NSTextAlignmentLeft;
+        self.indicatorView.image = nil;
         layoutAttribute = NSLayoutAttributeLeft;
         layoutConstant = 10;
     } else {
-        self.backgroundView.backgroundColor = [UIColor colorWithRed:.5 green:.2 blue:.2 alpha:0.4];
-        self.backgroundView.layer.borderColor = [[UIColor redColor] colorWithAlphaComponent:0.3].CGColor;
+        self.backgroundView.backgroundColor = [UIColor colorWithRed:91.0/255.0 green:173.0/255.0 blue:230.0/255.0 alpha:1.0];
+        self.backgroundView.layer.borderColor = [UIColor colorWithRed:91.0/255.0 green:173.0/255.0 blue:230.0/255.0 alpha:0.8].CGColor;
+        self.label.textAlignment = NSTextAlignmentLeft;
+        self.label.textColor = [UIColor whiteColor];
+        self.indicatorView.image = [UIImage imageNamed:@"dot"];
         layoutAttribute = NSLayoutAttributeRight;
         layoutConstant = -10;
     }
@@ -122,20 +144,10 @@
         self.blurView.alpha = privacy ? 1.0f : 0.0f;
     }];
 }
-- (void)longPressRecognizer:(UIGestureRecognizer *)gesture
-{
-    if (self.isPrivate.boolValue && gesture.state == UIGestureRecognizerStateBegan) {
-        self.blurView.alpha = 0;
-    } else if (self.isPrivate.boolValue && gesture.state == UIGestureRecognizerStateEnded){
-        self.blurView.alpha = 1;
-    }
-}
 
 - (void)prepareForReuse
 {
     self.label.text = nil;
-    self.labelWidthConstraint.constant = 0;
-    self.labelHeightConstraint.constant = 0;
 }
 
 

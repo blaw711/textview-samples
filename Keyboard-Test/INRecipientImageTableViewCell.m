@@ -27,25 +27,9 @@
     
     if (self) {
         
-        UIView *profileView = [[UIView alloc] init];
-        profileView.translatesAutoresizingMaskIntoConstraints = NO;
-        profileView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.6];
-        profileView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        profileView.layer.borderWidth = 2.0f;
-        profileView.layer.cornerRadius = 25.0f;
-        [self.contentView addSubview:profileView];
-        
-        self.widthConstraint = [NSLayoutConstraint constraintWithItem:profileView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:0];
-        [self.contentView addConstraint:self.widthConstraint];
-        
         self.label = [[UILabel alloc] init];
         self.label.translatesAutoresizingMaskIntoConstraints = NO;
-        self.label.textColor = [UIColor whiteColor];
-        self.label.text = @"Name Here Longer Name Here";
-        [profileView addSubview:self.label];
-        
-        self.labelWidthConstraint = [NSLayoutConstraint constraintWithItem:self.label attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:0];
-        [self.contentView addConstraint:self.labelWidthConstraint];
+        [self.contentView addSubview:self.label];
         
         self.chatImageView = [[UIImageView alloc] init];
         self.chatImageView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -54,15 +38,21 @@
         self.chatImageView.clipsToBounds = YES;
         self.chatImageView.layer.cornerRadius = 20.0f;
         self.chatImageView.backgroundColor = [UIColor blueColor];
-        [profileView addSubview:self.chatImageView];
+        [self.contentView addSubview:self.chatImageView];
         
-        NSDictionary *views = NSDictionaryOfVariableBindings(_chatImageView, _label);
-        [profileView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[_chatImageView(==40)]-3-[_label]" options:0 metrics:nil views:views]];
-        [profileView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[_chatImageView(==40)]-5-|" options:0 metrics:0 views:views]];
-        [profileView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[_label]-5-|" options:0 metrics:0 views:views]];
-        views = NSDictionaryOfVariableBindings(profileView);
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[profileView]" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[profileView]-5-|" options:0 metrics:0 views:views]];
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.chatImageView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeft multiplier:1 constant:10]];
+        
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.chatImageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:5]];
+        
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.chatImageView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1 constant:-5]];
+        
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.chatImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:40]];
+        
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.chatImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:40]];
+        
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.label attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.chatImageView attribute:NSLayoutAttributeRight multiplier:1 constant:5]];
+        
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.label attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     }
     
     return self;
@@ -72,8 +62,6 @@
 {
     self.chatImageView.image = image;
     self.label.text = name;
-    self.labelWidthConstraint.constant = self.label.intrinsicContentSize.width;
-    self.widthConstraint.constant = self.label.intrinsicContentSize.width + 65;
     
     [self.contentView layoutIfNeeded];
 }
@@ -82,7 +70,6 @@
 {
     self.chatImageView.image = nil;
     self.label.text = nil;
-    self.widthConstraint.constant = 0;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "INMotherChatTableViewCell.h"
 
 @interface INRecipientImageTableViewCell : UITableViewCell
 
