@@ -14,6 +14,8 @@
 
 - (void)textView:(KBInteractiveTextView *)textView didChangeToHeight:(CGFloat)height;
 - (void)textView:(KBInteractiveTextView *)textView didPressCameraButton:(BOOL)pressed;
+- (void)textView:(KBInteractiveTextView *)textView didPressSendButton:(BOOL)pressed;
+
 
 @end
 
@@ -22,6 +24,7 @@
 @property (nonatomic, strong) UITextView *textView;
 
 @property (nonatomic, strong, readonly) NSLayoutConstraint *heightConstraint;
+@property (nonatomic, strong) NSNumber *maxHeight;
 
 @property (nonatomic, weak) id<KBInteractiveTextViewDelegate> delegate;
 

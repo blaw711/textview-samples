@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "INMotherChatTableViewCell.h"
 
-@interface INUserTextTableViewCell : UITableViewCell
+
+@interface INUserTextTableViewCell : INMotherChatTableViewCell
 
 - (void)prepareWithText:(NSString *)text incoming:(BOOL)incoming privacy:(BOOL)privacy;
 

@@ -11,8 +11,11 @@
 @interface KBInteractiveTextView () <UITextViewDelegate>
 
 @property (nonatomic, strong) UIButton *button;
+@property (nonatomic, strong) UIButton *send;
 
 @property (nonatomic, strong, readwrite) NSLayoutConstraint *heightConstraint;
+
+@property (nonatomic, strong) UILabel *placeHolderLabel;
 
 
 @end
@@ -27,14 +30,28 @@
         
         self.textView = [[UITextView alloc] init];
         self.textView.translatesAutoresizingMaskIntoConstraints = NO;
-        self.textView.layer.cornerRadius = 10.0f;
-        self.textView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        self.textView.layer.borderWidth = 2.0f;
+        self.textView.scrollEnabled = NO;
+        self.textView.layer.cornerRadius = 5.0f;
+        self.textView.layer.borderWidth = 1.0f;
+        self.textView.layer.borderColor = [UIColor colorWithWhite:0 alpha:0.1].CGColor;
         self.textView.keyboardType = UIKeyboardTypeWebSearch;
-        self.textView.textContainerInset = UIEdgeInsetsMake(5, 2, 5, 2);
+        self.textView.textAlignment = NSTextAlignmentLeft;
+        self.textView.textContainerInset = UIEdgeInsetsMake(6, 2, 5, 2);
         self.textView.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:18.0f];
         self.textView.delegate = self;
         [self addSubview:self.textView];
+        
+        self.placeHolderLabel = [[UILabel alloc] init];
+        self.placeHolderLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        self.placeHolderLabel.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:18.0f];
+        self.placeHolderLabel.text = NSLocalizedString(@"type here", @"type_placeholder");
+        self.placeHolderLabel.textAlignment = NSTextAlignmentRight;
+        self.placeHolderLabel.textColor = [UIColor lightGrayColor];
+        //[self addSubview:self.placeHolderLabel];
+        
+//        NSDictionary *textviews = NSDictionaryOfVariableBindings(_placeHolderLabel);
+//        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_placeHolderLabel]-14-|" options:0 metrics:nil views:textviews]];
+//        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_placeHolderLabel]|" options:0 metrics:nil views:textviews]];
         
         self.button = [UIButton buttonWithType:UIButtonTypeCustom];
         self.button.translatesAutoresizingMaskIntoConstraints = NO;
@@ -43,11 +60,20 @@
         [self.button addTarget:self action:@selector(cameraButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.button];
         
-        NSDictionary *views = NSDictionaryOfVariableBindings(_textView, _button);
-        NSDictionary *metrics = @{@"buttonWidth" : @(self.button.intrinsicContentSize.width)};
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[_button(==buttonWidth)]-5-[_textView]-5-|" options:0 metrics:metrics views:views]];
+        self.send = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.send.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.send setTitle:@"Send" forState:UIControlStateNormal];
+        [self.send setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [self.send addTarget:self action:@selector(sendButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:self.send];
+        
+        NSDictionary *views = NSDictionaryOfVariableBindings(_textView, _button, _send);
+        NSDictionary *metrics = @{@"buttonWidth" : @(50)};
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[_button(==buttonWidth)]-5-[_textView]-5-[_send(==buttonWidth)]-5-|" options:0 metrics:metrics views:views]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[_textView]-5-|" options:0 metrics:0 views:views]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_button(==30)]-5-|" options:0 metrics:0 views:views]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_send(==30)]-5-|" options:0 metrics:0 views:views]];
+
     }
     
     return self;
@@ -58,8 +84,15 @@
     [self.delegate textView:self didPressCameraButton:YES];
 }
 
+- (void)sendButtonPressed
+{
+    [self.delegate textView:self didPressSendButton:YES];
+    self.textView.text = nil;
+}
+
 - (void)textViewDidChange:(UITextView *)textView
 {
+    self.placeHolderLabel.hidden = self.textView.text.length;
     [self refreshHeight];
 }
 
@@ -86,12 +119,11 @@
 {
     //size of content, so we can set the frame of self
     CGFloat minHeight = 40;
-    CGFloat maxHeight = 150;
-    NSInteger newSizeH = [self measureHeight] + 5;
+    CGFloat maxHeight = 140;
+    NSInteger newSizeH = [self measureHeight] + 7;
     if (newSizeH < minHeight || !self.textView.text) {
         newSizeH = minHeight; //not smalles than minHeight
         self.textView.scrollEnabled = NO;
-
     }
     else if (maxHeight && newSizeH > maxHeight) {
         newSizeH = maxHeight; // not taller than maxHeight
@@ -102,7 +134,6 @@
 
 }
 
-
 - (CGFloat)measureHeight
 {
     if ([self respondsToSelector:@selector(snapshotViewAfterScreenUpdates:)])
@@ -110,7 +141,7 @@
         return ceilf([self.textView sizeThatFits:self.textView.frame.size].height);
     }
     else {
-        return self.textView.contentSize.height + 5;
+        return self.textView.contentSize.height;
     }
 }
 /*
