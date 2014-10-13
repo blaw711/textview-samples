@@ -71,7 +71,7 @@
         
          [self.backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:self.label attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.backgroundView attribute:NSLayoutAttributeCenterY multiplier:1 constant:-0.5]];
         
-        self.label.preferredMaxLayoutWidth = CGRectGetWidth([UIScreen mainScreen].bounds) * .75;
+        self.label.preferredMaxLayoutWidth = CGRectGetWidth([UIScreen mainScreen].bounds) * .6;
         
          [self.backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:self.label attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.backgroundView attribute:NSLayoutAttributeHeight multiplier:1 constant:-15]];
         

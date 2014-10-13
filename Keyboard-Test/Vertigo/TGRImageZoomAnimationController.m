@@ -79,13 +79,6 @@
           initialSpringVelocity:0
                         options:UIViewAnimationOptionCurveLinear
                      animations:^{
-                         CGRect frame = fromViewController.view.frame;
-                         frame.origin.x = 20;
-                         frame.origin.y = 20;
-                         frame.size.width = frame.size.width - 40;
-                         frame.size.height = frame.size.height - 40;
-                         fromViewController.view.frame = frame;
-                         
                          fromViewController.view.alpha = 0.0;
 
                          transitionView.frame = transitionViewFinalFrame;
@@ -111,6 +104,7 @@
     toViewController.view.alpha = 0;
     [transitionContext.containerView addSubview:toViewController.view];
     [transitionContext.containerView sendSubviewToBack:toViewController.view];
+    
     
     // Compute the initial frame for the temporary view based on the image view
     // of the TGRImageViewController
