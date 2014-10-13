@@ -48,6 +48,8 @@ const static CGFloat kInitialToolBarHeight = 45.0f;
 
 @property (nonatomic, strong) INImageTableViewCell *imageCell;
 
+
+
 @end
 
 @implementation ViewController
@@ -56,10 +58,6 @@ const static CGFloat kInitialToolBarHeight = 45.0f;
     [super viewDidLoad];
     
     self.chatArray = [NSMutableArray new];
-    
-    //[self.navigationItem setTitle:@"Chat"];
-   // [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
-    //self.navigationController.navigationBar.translucent = NO;
     
     self.tableView  = [[UITableView alloc] initWithFrame:CGRectMake(0.0f,
                                                                            0.0f,
@@ -73,6 +71,12 @@ const static CGFloat kInitialToolBarHeight = 45.0f;
     self.tableView.estimatedRowHeight = 70.0f;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     [self.view addSubview:self.tableView];
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
+                                                  forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.view.backgroundColor = [UIColor clearColor];
     
     self.toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f,
                                                                      self.view.bounds.size.height - 44.0f,
@@ -119,19 +123,29 @@ const static CGFloat kInitialToolBarHeight = 45.0f;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillShow:) name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHide:) name:UIKeyboardDidHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardDidChangeFrame:) name:UIKeyboardDidChangeFrameNotification object:nil];    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardDidChangeFrame:) name:UIKeyboardDidChangeFrameNotification object:nil];
+    
+//    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 300, 44)];
+//    [self.shyNavBarManager setExtensionView:toolBar];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-}
+//- (void)viewDidAppear:(BOOL)animated
+//{
+//    self.shyNavBarManager.scrollView = self.tableView;
+//}
+//
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    self.shyNavBarManager.scrollView = self.tableView;
+//
+//}
 
-- (void) viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    
-    
-   // ;
-}
+//- (void) viewDidLayoutSubviews {
+//    [super viewDidLayoutSubviews];
+//    
+//    
+//   // ;
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
