@@ -58,6 +58,7 @@
     // Create a temporary view for the zoom in transition and set the initial frame based
     // on the reference image view
     UIImageView *transitionView = [[UIImageView alloc] initWithImage:self.referenceImageView.image];
+    transitionView.layer.cornerRadius = 15.0f;
     transitionView.contentMode = UIViewContentModeScaleAspectFill;
     transitionView.clipsToBounds = YES;
     transitionView.frame = [transitionContext.containerView convertRect:self.referenceImageView.bounds
@@ -124,6 +125,7 @@
     // Create a temporary view for the zoom out transition based on the image
     // view controller contents
     UIImageView *transitionView = [[UIImageView alloc] initWithImage:fromViewController.imageView.image];
+    transitionView.layer.cornerRadius = 15.0f;
     transitionView.contentMode = UIViewContentModeScaleAspectFill;
     transitionView.clipsToBounds = YES;
     transitionView.frame = transitionViewInitialFrame;

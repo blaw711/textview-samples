@@ -34,6 +34,7 @@
 - (id)initWithImage:(UIImage *)image {
     if (self = [super init]) {
         _image = image;
+        
     }
     
     return self;
@@ -43,8 +44,10 @@
     [super viewDidLoad];
     
     [self.scrollView setFrame:[UIScreen mainScreen].bounds];
-    self.scrollView.backgroundColor = [UIColor clearColor];
+
     [self.imageView setFrame:[UIScreen mainScreen].bounds];
+    self.imageView.layer.cornerRadius = 15.0f;
+    self.imageView.clipsToBounds = YES;
     
     [self.singleTapGestureRecognizer requireGestureRecognizerToFail:self.doubleTapGestureRecognizer];
     self.imageView.image = self.image;

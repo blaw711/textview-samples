@@ -12,7 +12,6 @@
 @interface INMotherChatTableViewCell () <MCSwipeTableViewCellDelegate>
 
 @property (nonatomic, strong) UIVisualEffectView *blurView;
-@property (nonatomic, strong) NSLayoutConstraint *timeStampConstraint;
 
 @end
 
@@ -23,6 +22,8 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
     if (self) {
+        
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         UILongPressGestureRecognizer *gestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressRecognizer:)];
         gestureRecognizer.minimumPressDuration = .25;
@@ -91,24 +92,54 @@
 
 - (void)longPressRecognizer:(UIGestureRecognizer *)gesture
 {
-    NSInteger alpha;
-    if (self.isPrivate.boolValue && gesture.state == UIGestureRecognizerStateBegan) {
-        alpha = 0;
-    } else if (self.isPrivate.boolValue && gesture.state == UIGestureRecognizerStateEnded){
-        alpha = 1;
-    } else if (gesture.state == UIGestureRecognizerStateBegan){
-        //show timestamp
+    if (self.isPrivate.boolValue) {
+        NSInteger alpha;
         
-    } else if (gesture.state == UIGestureRecognizerStateEnded){
-        //hide timestamp
+        if (gesture.state == UIGestureRecognizerStateBegan) {
+            alpha = 0;
+        } else {
+            alpha = 1;
+        }
+        
+        [UIView animateWithDuration:0.1 animations:^{
+            self.blurView.alpha = alpha;
+        }];
     }
     
-    [UIView animateWithDuration:0.4 animations:^{
-        [self.contentView layoutIfNeeded];
-    }];
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        if (self.isPrivate.boolValue) {
+            [self showTimeStamp:YES];
+        } else {
+             [self.cellDelegate displayTimeStamps:YES];
+        }
+    } else if (gesture.state == UIGestureRecognizerStateEnded){
+        if (self.isPrivate.boolValue) {
+            [self showTimeStamp:NO];
+        } else {
+            [self.cellDelegate displayTimeStamps:NO];
+        }
+    }
+}
+
+- (void)setPrivacyMode:(BOOL)private
+{
+    self.isPrivate = @(private);
+    NSInteger alpha;
+    if (private) {
+        alpha = 1;
+    } else {
+        alpha = 0;
+    }
     
-    [UIView animateWithDuration:0.1 animations:^{
+    [UIView animateWithDuration:0.3 animations:^{
         self.blurView.alpha = alpha;
+    }];
+}
+
+- (void)showTimeStamp:(BOOL)show
+{
+    [UIView animateWithDuration:0.4 animations:^{
+        self.timeStamp.alpha = show ? 1 : 0;
     }];
 }
 

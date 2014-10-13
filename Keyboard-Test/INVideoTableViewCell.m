@@ -26,8 +26,6 @@
     
     if (self) {
         
-//        self.selectionStyle = UITableViewCellSelectionStyleNone;
-        
         NSString *filepath   =   [[NSBundle mainBundle] pathForResource:@"beach" ofType:@"mp4"];
         NSURL    *fileURL    =   [NSURL fileURLWithPath:filepath];
         self.chatImageView = [[MPMoviePlayerController alloc] initWithContentURL:fileURL];
@@ -46,20 +44,6 @@
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.chatImageView.view attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:150]];
         
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.chatImageView.view attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:260]];
-        
-//        self.blurView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
-//        self.blurView.translatesAutoresizingMaskIntoConstraints = NO;
-//        self.blurView.alpha = 0;
-//        [self.chatImageView.view addSubview:self.blurView];
-//        
-//        [self.chatImageView.view addConstraint:[NSLayoutConstraint constraintWithItem:self.blurView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.chatImageView.view attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-//        [self.chatImageView.view addConstraint:[NSLayoutConstraint constraintWithItem:self.blurView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.chatImageView.view attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
-//        [self.chatImageView.view addConstraint:[NSLayoutConstraint constraintWithItem:self.blurView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.chatImageView.view attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
-//        [self.chatImageView.view addConstraint:[NSLayoutConstraint constraintWithItem:self.blurView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.chatImageView.view attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
-        
-        UILongPressGestureRecognizer *gestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressRecognizer:)];
-        gestureRecognizer.minimumPressDuration = .35;
-        //[self addGestureRecognizer:gestureRecognizer];
     }
     
     return  self;
@@ -67,7 +51,6 @@
 
 - (void)prepareWithIncoming:(BOOL)incoming
 {
-   // self.isPrivate = @(privacy);
     [self.chatImageView play];
     
     if (incoming) {
@@ -77,20 +60,6 @@
     }
     
     [self.contentView addConstraint:self.sideConstraint];
-    
-   // [self.chatImageView play];
-//    [UIView animateWithDuration:0.0 animations:^{
-//        self.blurView.alpha = privacy ? 1.0f : 0.0f;
-//    }];
-}
-
-- (void)longPressRecognizer:(UIGestureRecognizer *)gesture
-{
-//    if (self.isPrivate.boolValue && gesture.state == UIGestureRecognizerStateBegan) {
-//        self.blurView.alpha = 0;
-//    } else if (self.isPrivate.boolValue && gesture.state == UIGestureRecognizerStateEnded){
-//        self.blurView.alpha = 1;
-//    }
 }
 
 - (void)prepareForReuse

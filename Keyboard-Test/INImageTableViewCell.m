@@ -7,11 +7,12 @@
 //
 
 #import "INImageTableViewCell.h"
+#import "NSNumber+Orientation.h"
 
 @interface INImageTableViewCell ()
 
 @property (nonatomic, strong) UIVisualEffectView *blurView;
-
+@property (nonatomic, strong) UIView *indicatorView;
 @property (nonatomic, strong) NSLayoutConstraint *sideConstraint;
 
 @end
@@ -23,22 +24,42 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
     if (self) {
-        
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+                
         self.chatImageView = [[UIImageView alloc] init];
         self.chatImageView.translatesAutoresizingMaskIntoConstraints = NO;
-        self.chatImageView.image = [UIImage imageNamed:@"puppy"];
+        self.chatImageView.layer.borderColor = [UIColor colorWithWhite:0.0 alpha:0.1].CGColor;
+        self.chatImageView.layer.borderWidth = 0.5f;
         self.chatImageView.layer.cornerRadius = 15.0f;
         self.chatImageView.contentMode = UIViewContentModeScaleAspectFill;
         self.chatImageView.clipsToBounds = YES;
         [self.contentView addSubview:self.chatImageView];
         
+        self.indicatorView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dot"]];
+        self.indicatorView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.contentView addSubview:self.indicatorView];
+        
+        self.timeStamp = [[UILabel alloc] init];
+        self.timeStamp.translatesAutoresizingMaskIntoConstraints = NO;
+        self.timeStamp.numberOfLines = 2;
+        self.timeStamp.text = @"Wed 1:49 pm";
+        self.timeStamp.textColor = [UIColor lightGrayColor];
+        self.timeStamp.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:15.0f];
+        self.timeStamp.alpha = 0;
+        [self.contentView addSubview:self.timeStamp];
+        
         [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewWasTapped)]];
         
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.chatImageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:10]];
         
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.chatImageView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1 constant:-10]];
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.chatImageView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.timeStamp attribute:NSLayoutAttributeTop multiplier:1 constant:-3]];
+        
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.timeStamp attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-3]];
+        
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.indicatorView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.chatImageView attribute:NSLayoutAttributeRight multiplier:1.0 constant:-2.5]];
+        
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.timeStamp attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.indicatorView attribute:NSLayoutAttributeLeft multiplier:1.0 constant:-6]];
+        
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.indicatorView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.timeStamp attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
         
         self.blurView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
         self.blurView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -63,12 +84,10 @@
 - (void)prepareWithImage:(UIImage *)image privacy:(BOOL)privacy incoming:(BOOL)incoming
 {
   //  if (image.size.width >= CGRectGetWidth([UIScreen mainScreen].bounds)){
-        CGFloat size = image.size.width / (CGRectGetWidth([UIScreen mainScreen].bounds) *.5);
-        NSLog(@"%f", size);
+        CGFloat size = image.size.width / ([NSNumber getWidthForPortrait].integerValue * .65);
         image = [UIImage imageWithCGImage:[image CGImage] scale:(image.scale * size) orientation:image.imageOrientation];
   //  }
     self.chatImageView.image = image;
-    self.isPrivate = @(privacy);
     
     if (incoming) {
         self.sideConstraint = [NSLayoutConstraint constraintWithItem:self.chatImageView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeft multiplier:1 constant:10];

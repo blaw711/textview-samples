@@ -34,7 +34,6 @@
         self.textView.layer.cornerRadius = 5.0f;
         self.textView.layer.borderWidth = 1.0f;
         self.textView.layer.borderColor = [UIColor colorWithWhite:0 alpha:0.1].CGColor;
-        self.textView.keyboardType = UIKeyboardTypeWebSearch;
         self.textView.textAlignment = NSTextAlignmentLeft;
         self.textView.textContainerInset = UIEdgeInsetsMake(6, 2, 5, 2);
         self.textView.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:18.0f];
@@ -48,10 +47,6 @@
         self.placeHolderLabel.textAlignment = NSTextAlignmentRight;
         self.placeHolderLabel.textColor = [UIColor lightGrayColor];
         //[self addSubview:self.placeHolderLabel];
-        
-//        NSDictionary *textviews = NSDictionaryOfVariableBindings(_placeHolderLabel);
-//        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_placeHolderLabel]-14-|" options:0 metrics:nil views:textviews]];
-//        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_placeHolderLabel]|" options:0 metrics:nil views:textviews]];
         
         self.button = [UIButton buttonWithType:UIButtonTypeCustom];
         self.button.translatesAutoresizingMaskIntoConstraints = NO;

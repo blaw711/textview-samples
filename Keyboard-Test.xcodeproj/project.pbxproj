@@ -33,6 +33,7 @@
 		5A97DE5019EB8696007FF8DE /* TGRImageZoomAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A97DE4B19EB8696007FF8DE /* TGRImageZoomAnimationController.m */; };
 		5A97DE5119EB8696007FF8DE /* UIImage+AspectFit.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A97DE4D19EB8696007FF8DE /* UIImage+AspectFit.m */; };
 		5ABC3AB419EB6DDC00D00986 /* INChatObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC3AB319EB6DDC00D00986 /* INChatObject.m */; };
+		6D2199BC19EC5BBE00B95FC9 /* NSNumber+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2199BB19EC5BBE00B95FC9 /* NSNumber+Orientation.m */; };
 		6DE2971419E85ADF0042FC21 /* DAKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2971319E85ADF0042FC21 /* DAKeyboardControl.m */; };
 		6DE2971719E880520042FC21 /* INUserViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2971619E880520042FC21 /* INUserViewTableViewCell.m */; };
 		6DE2971A19E88B750042FC21 /* INRecipientImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2971919E88B750042FC21 /* INRecipientImageTableViewCell.m */; };
@@ -95,6 +96,9 @@
 		5A97DE4D19EB8696007FF8DE /* UIImage+AspectFit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+AspectFit.m"; sourceTree = "<group>"; };
 		5ABC3AB219EB6DDC00D00986 /* INChatObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INChatObject.h; sourceTree = "<group>"; };
 		5ABC3AB319EB6DDC00D00986 /* INChatObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INChatObject.m; sourceTree = "<group>"; };
+		6D2199B919EC5B7F00B95FC9 /* xxx-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "xxx-Prefix.pch"; sourceTree = "<group>"; };
+		6D2199BA19EC5BBE00B95FC9 /* NSNumber+Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+Orientation.h"; sourceTree = "<group>"; };
+		6D2199BB19EC5BBE00B95FC9 /* NSNumber+Orientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+Orientation.m"; sourceTree = "<group>"; };
 		6DE2971219E85ADF0042FC21 /* DAKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAKeyboardControl.h; sourceTree = "<group>"; };
 		6DE2971319E85ADF0042FC21 /* DAKeyboardControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAKeyboardControl.m; sourceTree = "<group>"; };
 		6DE2971519E880520042FC21 /* INUserViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INUserViewTableViewCell.h; sourceTree = "<group>"; };
@@ -214,6 +218,8 @@
 				5A61EA9E19E774A500CC7A69 /* Images.xcassets */,
 				5A61EAA019E774A500CC7A69 /* LaunchScreen.xib */,
 				5A61EA9119E774A500CC7A69 /* Supporting Files */,
+				6D2199BA19EC5BBE00B95FC9 /* NSNumber+Orientation.h */,
+				6D2199BB19EC5BBE00B95FC9 /* NSNumber+Orientation.m */,
 			);
 			path = "Keyboard-Test";
 			sourceTree = "<group>";
@@ -223,6 +229,7 @@
 			children = (
 				5A61EA9219E774A500CC7A69 /* Info.plist */,
 				5A61EA9319E774A500CC7A69 /* main.m */,
+				6D2199B919EC5B7F00B95FC9 /* xxx-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -380,6 +387,7 @@
 				5A56568819EAF65900C98DB3 /* DACircularProgressView.m in Sources */,
 				5ABC3AB419EB6DDC00D00986 /* INChatObject.m in Sources */,
 				5A61EAC919EA58E200CC7A69 /* INMotherChatTableViewCell.m in Sources */,
+				6D2199BC19EC5BBE00B95FC9 /* NSNumber+Orientation.m in Sources */,
 				6DE2971719E880520042FC21 /* INUserViewTableViewCell.m in Sources */,
 				5A61EAB919E7770D00CC7A69 /* KBInteractiveTextView.m in Sources */,
 				5A97DE4E19EB8696007FF8DE /* TGRImageViewController.m in Sources */,

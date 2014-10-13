@@ -18,6 +18,8 @@
 #import "TGRImageViewController.h"
 #import "TGRImageZoomAnimationController.h"
 
+const static CGFloat kInitialToolBarHeight = 45.0f;
+
 @interface ViewController () <UITableViewDataSource, UITableViewDelegate, KBInteractiveTextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIViewControllerTransitioningDelegate, INImageTableViewCellDelegate, INMotherChatTableViewCellDelegate>
 
 @property (nonatomic, strong) KBInteractiveTextView *textView;
@@ -75,7 +77,7 @@
     self.toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f,
                                                                      self.view.bounds.size.height - 44.0f,
                                                                      self.view.bounds.size.width,
-                                                                     44.0f)];
+                                                                     kInitialToolBarHeight)];
     
     
     self.isPrivate = @(NO);
@@ -196,6 +198,13 @@
     }
 }
 
+- (void)displayTimeStamps:(BOOL)display
+{
+    for (INMotherChatTableViewCell *cell in [self.tableView visibleCells]) {
+        [cell showTimeStamp:display];
+    }
+}
+
 #pragma mark - KBInteractiveTextViewDelegate
 
 - (void)textView:(KBInteractiveTextView *)textView didChangeToHeight:(CGFloat)height
@@ -210,7 +219,7 @@
         tableViewFrame.size.height = toolBar.origin.y;
         self.tableView.frame = tableViewFrame;
     }];
-    
+
     //[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:49 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
     
     self.view.keyboardTriggerOffset = self.toolBar.bounds.size.height;
@@ -242,15 +251,17 @@
 {
     INChatObject *chatObject = [[INChatObject alloc] init];
     chatObject.text = self.textView.textView.text;
-    self.textView.textView.text = nil;
+    self.textView.textView.text = @"";
     chatObject.image = self.image.copy;
     chatObject.incoming = self.segment.selectedSegmentIndex == 0 ? @(NO) : @(YES);
     
     [self.chatArray addObject:chatObject];
-    [self.tableView reloadData];
+    [self.tableView beginUpdates];
+    [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.chatArray.count -1  inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];
     self.image = nil;
-
     
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.chatArray.count -1  inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
 #pragma marks - UIImagePickerControllerDelegate
@@ -271,57 +282,9 @@
     return self.chatArray.count;
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    return [self heightForBasicCellAtIndexPath:indexPath];
-//}
-
-- (CGFloat)heightForBasicCellAtIndexPath:(NSIndexPath *)indexPath {
-   // static UITableViewCell *cell = nil;
-    CGFloat height;
-
-//        if (indexPath.row % 5 == 0) {
-//            INUserViewTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"kimageCell"];
-//            [(INUserViewTableViewCell *)cell prepareWithImage:[UIImage imageNamed:@"pup"] name:@"Ron Bergundy"];
-//           // height = [self calculateHeightForConfiguredSizingCell:cell];
-//
-//        } else if (indexPath.row % 5 == 1){
-//            INUserTextTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"youtextimageCell"];
-//            [(INUserTextTableViewCell *)cell prepareWithText:self.userArray[indexPath.row % 3] incoming:NO privacy:self.isPrivate.boolValue];
-//           // height = [self calculateHeightForConfiguredSizingCell:cell];
-//
-//        } else if(indexPath.row % 5 == 2){
-//            INRecipientImageTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"imageCell"];
-//            [(INRecipientImageTableViewCell *)cell prepareWithImage:[UIImage imageNamed:@"puppy"] name:@"Bob Law"];
-//           // height = [self calculateHeightForConfiguredSizingCell:cell];
-//
-//        } else if(indexPath.row % 5 == 3){
-//            INUserTextTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"youtextimageCell"];
-//            [(INUserTextTableViewCell *)cell prepareWithText:self.recipientArray[indexPath.row % 3] incoming:YES privacy:self.isPrivate.boolValue];
-//           // height = [self calculateHeightForConfiguredSizingCell:cell];
-//
-//        } else {
-//            INImageTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"realimageCell"];
-//            [(INImageTableViewCell *)cell prepareWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"puppy%ld", indexPath.row % 4]] privacy:self.isPrivate.boolValue incoming:indexPath.row % 2 == 0 ? YES : NO];
-//            height = [self calculateHeightForConfiguredSizingCell:cell];
-//        }
-
-    return height;
-}
-
-- (CGFloat)calculateHeightForConfiguredSizingCell:(INImageTableViewCell *)sizingCell {
-    [sizingCell setNeedsLayout];
-    [sizingCell layoutIfNeeded];
-    
-    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    NSLog(@"size = %f", size.height);
-    return size.height;
-}
-
 - (UITableViewCell *)CellAtIndexPath:(NSIndexPath *)indexPath
 {
     INChatObject *object = self.chatArray[indexPath.row];
-    
     
     if (object.image) {
         INImageTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"realimageCell"];
@@ -330,6 +293,7 @@
         }
         cell.delegate = self;
         cell.cellDelegate = self;
+        [cell setPrivacyMode:self.isPrivate.boolValue];
         [cell prepareWithImage:object.image privacy:self.isPrivate.boolValue incoming:object.incoming.boolValue];
         return cell;
     } else {
@@ -338,60 +302,10 @@
             cell = [[INUserTextTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"youtextimageCell"];
         }
         [cell prepareWithText:object.text incoming:object.incoming.boolValue privacy:self.isPrivate.boolValue];
+        [cell setPrivacyMode:self.isPrivate.boolValue];
         cell.cellDelegate = self;
         return cell;
     }
- 
-//    }
-//    if (indexPath.row % 5 == 0) {
-//        INUserViewTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"kimageCell"];
-//        
-//        if (!cell) {
-//            cell = [[INUserViewTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"kimageCell"];
-//        }
-//        [cell prepareWithImage:[UIImage imageNamed:@"pup"] name:@"@Bob"];
-//        return cell;
-//    } else if (indexPath.row % 5 == 1){
-//        INUserTextTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"youtextimageCell"];
-//        if (!cell) {
-//            cell = [[INUserTextTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"youtextimageCell"];
-//        }
-//        [cell prepareWithText:self.userArray[0] incoming:NO privacy:self.isPrivate.boolValue];
-//        return cell;
-//    } else if(indexPath.row % 5 == 2){
-//        INRecipientImageTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"imageCell"];
-//        
-//        if (!cell) {
-//            cell = [[INRecipientImageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"imageCell"];
-//        }
-//        [cell prepareWithImage:[UIImage imageNamed:@"puppy"] name:@"@RonBurgundy"];
-//        return cell;
-//    } else if(indexPath.row % 5 == 3){
-//        INUserTextTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"youtextimageCell"];
-//        if (!cell) {
-//            cell = [[INUserTextTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"youtextimageCell"];
-//        }
-//        [cell prepareWithText:self.recipientArray[1] incoming:YES privacy:self.isPrivate.boolValue];
-//        return cell;
-//        
-//    } else if(indexPath.row % 5 == 4){
-//        INImageTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"realimageCell"];
-//        if (!cell) {
-//            cell = [[INImageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"realimageCell"];
-//        }
-//        cell.delegate = self;
-//        [cell prepareWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"puppy%ld", indexPath.row % 4]] privacy:self.isPrivate.boolValue incoming:indexPath.row % 2 == 0 ? YES : NO];
-//        return cell;
-//    } else  {
-//        INImageTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"realimageCell"];
-//        if (!cell) {
-//            cell = [[INImageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"realimageCell"];
-//        }
-//        cell.delegate = self;
-//        [cell prepareWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"puppy%ld", indexPath.row % 4]] privacy:self.isPrivate.boolValue incoming:indexPath.row % 2 == 0 ? YES : NO];
-//        return cell;
-//    }
-
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -414,6 +328,10 @@
     if (motion == UIEventSubtypeMotionShake)
     {
         self.isPrivate = [NSNumber numberWithBool:!self.isPrivate.boolValue];
+        
+        for (INMotherChatTableViewCell *cell in [self.tableView visibleCells]) {
+            [cell setPrivacyMode:self.isPrivate.boolValue];
+        }
         //r[self.tableView reloadData];
     } 
 }

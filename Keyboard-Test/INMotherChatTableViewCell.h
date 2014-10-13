@@ -14,6 +14,7 @@
 @protocol INMotherChatTableViewCellDelegate <NSObject>
 
 - (void)deleteCell:(INMotherChatTableViewCell *)cell;
+- (void)displayTimeStamps:(BOOL)display;
 
 @end
 
@@ -21,5 +22,9 @@
 
 @property (nonatomic, strong, readwrite) NSNumber *isPrivate;
 @property (nonatomic, weak) id<INMotherChatTableViewCellDelegate> cellDelegate;
+@property (nonatomic, strong) UILabel *timeStamp;
+
+- (void)setPrivacyMode:(BOOL)private;
+- (void)showTimeStamp:(BOOL)show;
 
 @end
