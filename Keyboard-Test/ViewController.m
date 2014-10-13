@@ -55,9 +55,9 @@
     
     self.chatArray = [NSMutableArray new];
     
-    [self.navigationItem setTitle:@"Chat"];
-    [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
-    self.navigationController.navigationBar.translucent = NO;
+    //[self.navigationItem setTitle:@"Chat"];
+   // [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
+    //self.navigationController.navigationBar.translucent = NO;
     
     self.tableView  = [[UITableView alloc] initWithFrame:CGRectMake(0.0f,
                                                                            0.0f,
@@ -154,8 +154,6 @@
    CGRect keyboardFrame = [[userInfo objectForKey: UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
     self.keyboardHeight = @(keyboardFrame.size.height);
-    self.tableViewHeight.constant = CGRectGetHeight([UIScreen mainScreen].bounds) - self.toolbarHeight.constant - 20;
-    //self.toolBarBottomConstraint.constant = 0;
 
     
     [UIView animateWithDuration:keyboardSlideDuration animations:^{
