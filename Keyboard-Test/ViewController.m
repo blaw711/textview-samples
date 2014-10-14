@@ -12,7 +12,7 @@
 #import "INUserViewTableViewCell.h"
 #import "INRecipientImageTableViewCell.h"
 #import "INChatMessageTableViewCell.h"
-#import "INImageTableViewCell.h"
+#import "INChatImageTableViewCell.h"
 #import "INVideoTableViewCell.h"
 #import "INChatObject.h"
 #import "TGRImageViewController.h"
@@ -43,7 +43,7 @@ const static CGFloat kInitialToolBarHeight = 45.0f;
 
 @property (strong, nonatomic) IBOutlet UISegmentedControl *segment;
 
-@property (nonatomic, strong) INImageTableViewCell *imageCell;
+@property (nonatomic, strong) INChatImageTableViewCell *imageCell;
 
 
 
@@ -228,7 +228,7 @@ const static CGFloat kInitialToolBarHeight = 45.0f;
 - (void)deleteCell:(INMotherChatTableViewCell *)cell
 {
     [self.tableView beginUpdates];
-    [self.tableView deleteRowsAtIndexPaths:@[[self.tableView indexPathForCell:cell]] withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView deleteRowsAtIndexPaths:@[[self.tableView indexPathForCell:cell]] withRowAnimation:UITableViewRowAnimationRight];
     [self.chatArray removeObjectAtIndex:[self.tableView indexPathForCell:cell].row];
     [self.tableView endUpdates];
     if (self.chatArray.count == 0 || !self.chatArray) {
@@ -338,9 +338,9 @@ const static CGFloat kInitialToolBarHeight = 45.0f;
     INChatObject *object = self.chatArray[indexPath.row];
     
     if (object.image) {
-        INImageTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"realimageCell"];
+        INChatImageTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"realimageCell"];
         if (!cell) {
-            cell = [[INImageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"realimageCell"];
+            cell = [[INChatImageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"realimageCell"];
         }
         cell.delegate = self;
         cell.cellDelegate = self;
@@ -389,7 +389,7 @@ const static CGFloat kInitialToolBarHeight = 45.0f;
 
 #pragma marks - INImageTableViewCellDelegate
 
-- (void)imageTableView:(INImageTableViewCell *)imageCell didSelectCellWithImage:(UIImage *)image
+- (void)imageTableView:(INChatImageTableViewCell *)imageCell didSelectCellWithImage:(UIImage *)image
 {
     TGRImageViewController *viewController = [[TGRImageViewController alloc] initWithImage:image];
     viewController.transitioningDelegate = self;

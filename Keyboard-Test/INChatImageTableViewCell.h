@@ -9,15 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "INMotherChatTableViewCell.h"
 
-@class INImageTableViewCell;
+@class INChatImageTableViewCell;
 
 @protocol INImageTableViewCellDelegate <NSObject>
 
-- (void)imageTableView:(INImageTableViewCell *)imageCell didSelectCellWithImage:(UIImage *)image;
+- (void)imageTableView:(INChatImageTableViewCell *)imageCell didSelectCellWithImage:(UIImage *)image;
 
 @end
 
-@interface INImageTableViewCell : INMotherChatTableViewCell
+@interface INChatImageTableViewCell : INMotherChatTableViewCell
 
 @property (nonatomic, strong) UIImageView *chatImageView;
 @property (nonatomic, weak) id<INImageTableViewCellDelegate> delegate;

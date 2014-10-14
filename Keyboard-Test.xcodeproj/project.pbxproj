@@ -19,7 +19,7 @@
 		5A61EAA219E774A500CC7A69 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A61EAA019E774A500CC7A69 /* LaunchScreen.xib */; };
 		5A61EAAE19E774A500CC7A69 /* Keyboard_TestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A61EAAD19E774A500CC7A69 /* Keyboard_TestTests.m */; };
 		5A61EAB919E7770D00CC7A69 /* KBInteractiveTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A61EAB819E7770D00CC7A69 /* KBInteractiveTextView.m */; };
-		5A61EABC19E8E8DB00CC7A69 /* INImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A61EABB19E8E8DB00CC7A69 /* INImageTableViewCell.m */; };
+		5A61EABC19E8E8DB00CC7A69 /* INChatImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A61EABB19E8E8DB00CC7A69 /* INChatImageTableViewCell.m */; };
 		5A61EAC019EA40DF00CC7A69 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A61EABF19EA40DF00CC7A69 /* MediaPlayer.framework */; };
 		5A61EAC319EA411F00CC7A69 /* INVideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A61EAC219EA411F00CC7A69 /* INVideoTableViewCell.m */; };
 		5A61EAC619EA47C700CC7A69 /* beach.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5A61EAC519EA47C700CC7A69 /* beach.mp4 */; };
@@ -74,8 +74,8 @@
 		5A61EAAD19E774A500CC7A69 /* Keyboard_TestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Keyboard_TestTests.m; sourceTree = "<group>"; };
 		5A61EAB719E7770D00CC7A69 /* KBInteractiveTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBInteractiveTextView.h; sourceTree = "<group>"; };
 		5A61EAB819E7770D00CC7A69 /* KBInteractiveTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBInteractiveTextView.m; sourceTree = "<group>"; };
-		5A61EABA19E8E8DB00CC7A69 /* INImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INImageTableViewCell.h; sourceTree = "<group>"; };
-		5A61EABB19E8E8DB00CC7A69 /* INImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INImageTableViewCell.m; sourceTree = "<group>"; };
+		5A61EABA19E8E8DB00CC7A69 /* INChatImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INChatImageTableViewCell.h; sourceTree = "<group>"; };
+		5A61EABB19E8E8DB00CC7A69 /* INChatImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INChatImageTableViewCell.m; sourceTree = "<group>"; };
 		5A61EABD19E9FCC800CC7A69 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		5A61EABF19EA40DF00CC7A69 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		5A61EAC119EA411F00CC7A69 /* INVideoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVideoTableViewCell.h; sourceTree = "<group>"; };
@@ -208,8 +208,8 @@
 				6DE2971919E88B750042FC21 /* INRecipientImageTableViewCell.m */,
 				6DE2971B19E88E680042FC21 /* INChatMessageTableViewCell.h */,
 				6DE2971C19E88E680042FC21 /* INChatMessageTableViewCell.m */,
-				5A61EABA19E8E8DB00CC7A69 /* INImageTableViewCell.h */,
-				5A61EABB19E8E8DB00CC7A69 /* INImageTableViewCell.m */,
+				5A61EABA19E8E8DB00CC7A69 /* INChatImageTableViewCell.h */,
+				5A61EABB19E8E8DB00CC7A69 /* INChatImageTableViewCell.m */,
 				5A61EAC119EA411F00CC7A69 /* INVideoTableViewCell.h */,
 				5A61EAC219EA411F00CC7A69 /* INVideoTableViewCell.m */,
 				5ABC3AB219EB6DDC00D00986 /* INChatObject.h */,
@@ -394,7 +394,7 @@
 				6DE2971419E85ADF0042FC21 /* DAKeyboardControl.m in Sources */,
 				5A61EA9719E774A500CC7A69 /* AppDelegate.m in Sources */,
 				5A61EA9419E774A500CC7A69 /* main.m in Sources */,
-				5A61EABC19E8E8DB00CC7A69 /* INImageTableViewCell.m in Sources */,
+				5A61EABC19E8E8DB00CC7A69 /* INChatImageTableViewCell.m in Sources */,
 				5A56567E19EACB6A00C98DB3 /* TTTAttributedLabel.m in Sources */,
 				5A97DE5119EB8696007FF8DE /* UIImage+AspectFit.m in Sources */,
 			);
