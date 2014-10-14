@@ -17,6 +17,7 @@
 #import "INChatObject.h"
 #import "TGRImageViewController.h"
 #import "TGRImageZoomAnimationController.h"
+#import "INChatUserHeaderView.h"
 
 const static CGFloat kInitialToolBarHeight = 45.0f;
 
@@ -58,6 +59,10 @@ const static CGFloat kInitialToolBarHeight = 45.0f;
     
     self.navigationController.hidesBarsOnSwipe = YES;
     
+    INChatUserHeaderView *headerView = [[INChatUserHeaderView alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
+    [headerView prepareWithImage:[UIImage imageNamed:@"pup"] name:@"@RonSwanson"];
+    self.navigationItem.titleView = headerView;
+    
     self.tableView  = [[UITableView alloc] initWithFrame:CGRectMake(0.0f,
                                                                            0.0f,
                                                                            self.view.bounds.size.width,
@@ -75,12 +80,16 @@ const static CGFloat kInitialToolBarHeight = 45.0f;
                                                   forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.navigationBar.translucent = YES;
-    self.navigationController.view.backgroundColor = [UIColor clearColor];
+    self.navigationController.navigationBar.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.7];
     
-    self.toolBar = [[UIView alloc] initWithFrame:CGRectMake(0.0f,
-                                                                     self.view.bounds.size.height - kInitialToolBarHeight,
-                                                                     self.view.bounds.size.width,
-                                                                     kInitialToolBarHeight)];
+    UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), 20)];
+    statusBarView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.7];
+    statusBarView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+    [self.view addSubview:statusBarView];
+
+
+    
+    self.toolBar = [[UIView alloc] initWithFrame:CGRectMake(0.0f, self.view.bounds.size.height - kInitialToolBarHeight, self.view.bounds.size.width, kInitialToolBarHeight)];
 //    self.toolBar.translucent = NO;
     self.toolBar.backgroundColor = [UIColor clearColor];
     self.toolBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;

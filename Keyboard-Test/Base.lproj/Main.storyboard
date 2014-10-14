@@ -19,17 +19,19 @@
                     </view>
                     <navigationItem key="navigationItem" id="DsO-2T-a1B">
                         <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Oy0-Of-xqo">
-                            <rect key="frame" x="180" y="7" width="240" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="First"/>
-                                <segment title="Second"/>
-                            </segments>
-                        </segmentedControl>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="SQK-5M-oj3">
+                            <segmentedControl key="customView" hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="DPG-ob-QU3">
+                                <rect key="frame" x="-61" y="-14" width="133" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="First"/>
+                                    <segment title="Second"/>
+                                </segments>
+                            </segmentedControl>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="segment" destination="Oy0-Of-xqo" id="s15-nL-RdN"/>
+                        <outlet property="segment" destination="DPG-ob-QU3" id="UeJ-JD-3Km"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

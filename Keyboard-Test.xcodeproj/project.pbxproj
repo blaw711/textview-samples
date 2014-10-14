@@ -34,6 +34,7 @@
 		5A97DE5119EB8696007FF8DE /* UIImage+AspectFit.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A97DE4D19EB8696007FF8DE /* UIImage+AspectFit.m */; };
 		5ABC3AB419EB6DDC00D00986 /* INChatObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC3AB319EB6DDC00D00986 /* INChatObject.m */; };
 		6D2199BC19EC5BBE00B95FC9 /* NSNumber+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2199BB19EC5BBE00B95FC9 /* NSNumber+Orientation.m */; };
+		6DB1042A19ED7A8D0090EC7C /* INChatUserHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB1042919ED7A8D0090EC7C /* INChatUserHeaderView.m */; };
 		6DE2971419E85ADF0042FC21 /* DAKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2971319E85ADF0042FC21 /* DAKeyboardControl.m */; };
 		6DE2971719E880520042FC21 /* INUserViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2971619E880520042FC21 /* INUserViewTableViewCell.m */; };
 		6DE2971A19E88B750042FC21 /* INRecipientImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2971919E88B750042FC21 /* INRecipientImageTableViewCell.m */; };
@@ -99,6 +100,8 @@
 		6D2199B919EC5B7F00B95FC9 /* xxx-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "xxx-Prefix.pch"; sourceTree = "<group>"; };
 		6D2199BA19EC5BBE00B95FC9 /* NSNumber+Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+Orientation.h"; sourceTree = "<group>"; };
 		6D2199BB19EC5BBE00B95FC9 /* NSNumber+Orientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+Orientation.m"; sourceTree = "<group>"; };
+		6DB1042819ED7A8D0090EC7C /* INChatUserHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INChatUserHeaderView.h; sourceTree = "<group>"; };
+		6DB1042919ED7A8D0090EC7C /* INChatUserHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INChatUserHeaderView.m; sourceTree = "<group>"; };
 		6DE2971219E85ADF0042FC21 /* DAKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAKeyboardControl.h; sourceTree = "<group>"; };
 		6DE2971319E85ADF0042FC21 /* DAKeyboardControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAKeyboardControl.m; sourceTree = "<group>"; };
 		6DE2971519E880520042FC21 /* INUserViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INUserViewTableViewCell.h; sourceTree = "<group>"; };
@@ -214,6 +217,8 @@
 				5A61EAC219EA411F00CC7A69 /* INVideoTableViewCell.m */,
 				5ABC3AB219EB6DDC00D00986 /* INChatObject.h */,
 				5ABC3AB319EB6DDC00D00986 /* INChatObject.m */,
+				6DB1042819ED7A8D0090EC7C /* INChatUserHeaderView.h */,
+				6DB1042919ED7A8D0090EC7C /* INChatUserHeaderView.m */,
 				5A61EA9B19E774A500CC7A69 /* Main.storyboard */,
 				5A61EA9E19E774A500CC7A69 /* Images.xcassets */,
 				5A61EAA019E774A500CC7A69 /* LaunchScreen.xib */,
@@ -384,6 +389,7 @@
 				5A56568919EAF65900C98DB3 /* DALabeledCircularProgressView.m in Sources */,
 				5A97DE5019EB8696007FF8DE /* TGRImageZoomAnimationController.m in Sources */,
 				6DE2971D19E88E680042FC21 /* INChatMessageTableViewCell.m in Sources */,
+				6DB1042A19ED7A8D0090EC7C /* INChatUserHeaderView.m in Sources */,
 				5A56568819EAF65900C98DB3 /* DACircularProgressView.m in Sources */,
 				5ABC3AB419EB6DDC00D00986 /* INChatObject.m in Sources */,
 				5A61EAC919EA58E200CC7A69 /* INMotherChatTableViewCell.m in Sources */,
