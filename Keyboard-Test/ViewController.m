@@ -18,7 +18,7 @@
 #import "TGRImageViewController.h"
 #import "TGRImageZoomAnimationController.h"
 
-const static CGFloat kInitialToolBarHeight = 45.0f;
+const static CGFloat kInitialToolBarHeight = 50.0f;
 
 @interface ViewController () <UITableViewDataSource, UITableViewDelegate, KBInteractiveTextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIViewControllerTransitioningDelegate, INImageTableViewCellDelegate, INMotherChatTableViewCellDelegate>
 
@@ -34,9 +34,6 @@ const static CGFloat kInitialToolBarHeight = 45.0f;
 @property (nonatomic, strong) NSNumber *keyboardHeight;
 
 @property (nonatomic, strong) UIToolbar *toolBar;
-
-@property (nonatomic, strong) NSMutableArray *userArray;
-@property (nonatomic, strong) NSMutableArray *recipientArray;
 
 @property (nonatomic, strong) NSNumber *isPrivate;
 
@@ -62,7 +59,7 @@ const static CGFloat kInitialToolBarHeight = 45.0f;
     self.tableView  = [[UITableView alloc] initWithFrame:CGRectMake(0.0f,
                                                                            0.0f,
                                                                            self.view.bounds.size.width,
-                                                                           self.view.bounds.size.height - 44.0f)];
+                                                                           self.view.bounds.size.height - kInitialToolBarHeight)];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -79,18 +76,16 @@ const static CGFloat kInitialToolBarHeight = 45.0f;
     self.navigationController.view.backgroundColor = [UIColor clearColor];
     
     self.toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f,
-                                                                     self.view.bounds.size.height - 44.0f,
+                                                                     self.view.bounds.size.height - kInitialToolBarHeight,
                                                                      self.view.bounds.size.width,
                                                                      kInitialToolBarHeight)];
-    
+    self.toolBar.translucent = NO;
+    self.toolBar.backgroundColor = [UIColor whiteColor];
+    self.toolBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+    self.toolBar.clipsToBounds = YES;
+    [self.view addSubview:self.toolBar];
     
     self.isPrivate = @(NO);
-    
-    self.userArray = @[@"dfuwbenfiwbjenfiwebfwleifjbwlefjbwielfblwefjbnwleifjnlweifj", @"ou think water moves fast? You should see ice. It moves like it has a mind. Like it knows it killed the world once and got a taste for murder. After the avalanche, it took us a week to climb out.", @"w dfjb wnef wef wef ewf ew fe wfwe f wef wef ewf we f wef wef  few", @"dfwefwef wedwedw"].mutableCopy;
-    self.recipientArray = @[@"Check out this website! www.google.com", @"ewdjed wew qwr0etuopi 093ry23bieuqwd 2f3hiowfe", @"dfibwebfwe sad cdfv eweqw", @"wefjhwefjkwefh"].mutableCopy;
-    
-    self.toolBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
-    [self.view addSubview:self.toolBar];
     
     self.textView = [[KBInteractiveTextView alloc] init];
     self.textView.translatesAutoresizingMaskIntoConstraints = NO;
