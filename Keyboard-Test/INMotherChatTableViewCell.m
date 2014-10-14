@@ -6,8 +6,11 @@
 //  Copyright (c) 2014 Bob Law. All rights reserved.
 //
 
+
 #import "INMotherChatTableViewCell.h"
 #import "DACircularProgressView.h"
+
+const static CGFloat kAnimationDuration = 0.3f;
 
 @interface INMotherChatTableViewCell () <MCSwipeTableViewCellDelegate>
 
@@ -101,7 +104,7 @@
             alpha = 1;
         }
         
-        [UIView animateWithDuration:0.1 animations:^{
+        [UIView animateWithDuration:kAnimationDuration animations:^{
             self.blurView.alpha = alpha;
         }];
     }
@@ -131,14 +134,14 @@
         alpha = 0;
     }
     
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:kAnimationDuration animations:^{
         self.blurView.alpha = alpha;
     }];
 }
 
 - (void)showTimeStamp:(BOOL)show
 {
-    [UIView animateWithDuration:0.4 animations:^{
+    [UIView animateWithDuration:kAnimationDuration animations:^{
         self.timeStamp.alpha = show ? 1 : 0;
     }];
 }

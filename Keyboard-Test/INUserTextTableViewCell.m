@@ -43,6 +43,7 @@
         self.label.translatesAutoresizingMaskIntoConstraints = NO;
         self.label.enabledTextCheckingTypes = NSTextCheckingTypeAddress | NSTextCheckingTypeDate | NSTextCheckingTypeLink | NSTextCheckingAllTypes;
         self.label.numberOfLines = 0;
+        self.label.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:18.0f];
         self.label.text = nil;
         self.label.textAlignment = NSTextAlignmentLeft;
         [self.backgroundView addSubview:self.label];
@@ -66,7 +67,7 @@
         
          [self.backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.label attribute:NSLayoutAttributeWidth multiplier:1 constant:15]];
         
-         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.timeStamp attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.timeStamp attribute:NSLayoutAttributeTop multiplier:1 constant:3.5]];
         
         [self.backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:self.label attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.backgroundView attribute:NSLayoutAttributeCenterX multiplier:1 constant:3]];
         
@@ -128,7 +129,7 @@
     } else {
 //        self.backgroundView.backgroundColor = [UIColor colorWithRed:91.0/255.0 green:173.0/255.0 blue:230.0/255.0 alpha:1.0];
 //        self.backgroundView.layer.borderColor = [UIColor colorWithRed:91.0/255.0 green:173.0/255.0 blue:230.0/255.0 alpha:0.8].CGColor;
-        self.label.textAlignment = NSTextAlignmentLeft;
+        self.label.textAlignment = NSTextAlignmentRight;
 //        self.label.textColor = [UIColor whiteColor];
         self.indicatorView.image = [UIImage imageNamed:@"dot"];
         layoutAttribute = NSLayoutAttributeRight;

@@ -18,7 +18,7 @@
 #import "TGRImageViewController.h"
 #import "TGRImageZoomAnimationController.h"
 
-const static CGFloat kInitialToolBarHeight = 45.0f;
+const static CGFloat kInitialToolBarHeight = 50.0f;
 
 @interface ViewController () <UITableViewDataSource, UITableViewDelegate, KBInteractiveTextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIViewControllerTransitioningDelegate, INImageTableViewCellDelegate, INMotherChatTableViewCellDelegate>
 
@@ -35,9 +35,6 @@ const static CGFloat kInitialToolBarHeight = 45.0f;
 
 @property (nonatomic, strong) UIToolbar *toolBar;
 
-@property (nonatomic, strong) NSMutableArray *userArray;
-@property (nonatomic, strong) NSMutableArray *recipientArray;
-
 @property (nonatomic, strong) NSNumber *isPrivate;
 
 @property(nonatomic, strong) UIImage *image;
@@ -48,6 +45,8 @@ const static CGFloat kInitialToolBarHeight = 45.0f;
 
 @property (nonatomic, strong) INImageTableViewCell *imageCell;
 
+
+
 @end
 
 @implementation ViewController
@@ -57,14 +56,10 @@ const static CGFloat kInitialToolBarHeight = 45.0f;
     
     self.chatArray = [NSMutableArray new];
     
-    //[self.navigationItem setTitle:@"Chat"];
-   // [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
-    //self.navigationController.navigationBar.translucent = NO;
-    
     self.tableView  = [[UITableView alloc] initWithFrame:CGRectMake(0.0f,
                                                                            0.0f,
                                                                            self.view.bounds.size.width,
-                                                                           self.view.bounds.size.height - 44.0f)];
+                                                                           self.view.bounds.size.height - kInitialToolBarHeight)];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -74,19 +69,23 @@ const static CGFloat kInitialToolBarHeight = 45.0f;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     [self.view addSubview:self.tableView];
     
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
+                                                  forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.view.backgroundColor = [UIColor clearColor];
+    
     self.toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f,
-                                                                     self.view.bounds.size.height - 44.0f,
+                                                                     self.view.bounds.size.height - kInitialToolBarHeight,
                                                                      self.view.bounds.size.width,
                                                                      kInitialToolBarHeight)];
-    
+    self.toolBar.translucent = NO;
+    self.toolBar.backgroundColor = [UIColor whiteColor];
+    self.toolBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+    self.toolBar.clipsToBounds = YES;
+    [self.view addSubview:self.toolBar];
     
     self.isPrivate = @(NO);
-    
-    self.userArray = @[@"dfuwbenfiwbjenfiwebfwleifjbwlefjbwielfblwefjbnwleifjnlweifj", @"ou think water moves fast? You should see ice. It moves like it has a mind. Like it knows it killed the world once and got a taste for murder. After the avalanche, it took us a week to climb out.", @"w dfjb wnef wef wef ewf ew fe wfwe f wef wef ewf we f wef wef  few", @"dfwefwef wedwedw"].mutableCopy;
-    self.recipientArray = @[@"Check out this website! www.google.com", @"ewdjed wew qwr0etuopi 093ry23bieuqwd 2f3hiowfe", @"dfibwebfwe sad cdfv eweqw", @"wefjhwefjkwefh"].mutableCopy;
-    
-    self.toolBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
-    [self.view addSubview:self.toolBar];
     
     self.textView = [[KBInteractiveTextView alloc] init];
     self.textView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -119,19 +118,29 @@ const static CGFloat kInitialToolBarHeight = 45.0f;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillShow:) name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHide:) name:UIKeyboardDidHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardDidChangeFrame:) name:UIKeyboardDidChangeFrameNotification object:nil];    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardDidChangeFrame:) name:UIKeyboardDidChangeFrameNotification object:nil];
+    
+//    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 300, 44)];
+//    [self.shyNavBarManager setExtensionView:toolBar];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-}
+//- (void)viewDidAppear:(BOOL)animated
+//{
+//    self.shyNavBarManager.scrollView = self.tableView;
+//}
+//
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    self.shyNavBarManager.scrollView = self.tableView;
+//
+//}
 
-- (void) viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    
-    
-   // ;
-}
+//- (void) viewDidLayoutSubviews {
+//    [super viewDidLayoutSubviews];
+//    
+//    
+//   // ;
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
