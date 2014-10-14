@@ -33,8 +33,8 @@
         self.textView.translatesAutoresizingMaskIntoConstraints = NO;
         self.textView.scrollEnabled = NO;
         self.textView.layer.cornerRadius = 5.0f;
-        self.textView.layer.borderWidth = 1.0f;
-        self.textView.textColor = [UIColor colorWithWhite:0.0f alpha:0.8f];
+//        self.textView.layer.borderWidth = 1.0f;
+//        self.textView.textColor = [UIColor colorWithWhite:0.0f alpha:0.8f];
         self.textView.layer.borderColor = [UIColor colorWithWhite:0 alpha:0.1].CGColor;
         self.textView.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.1f];
         self.textView.textAlignment = NSTextAlignmentLeft;
@@ -71,7 +71,7 @@
         [self.send setTitle:@"Send" forState:UIControlStateNormal];
         [self.send setTitleColor:[UIColor colorWithWhite:0.0f alpha:0.2f] forState:UIControlStateNormal];
         [self.send addTarget:self action:@selector(sendButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:self.send];
+        //[self addSubview:self.send];
         
         
 //        self.heightConstraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:50];
@@ -81,10 +81,10 @@
         
         NSDictionary *views = NSDictionaryOfVariableBindings(_textView, _cameraButton, _send);
         NSDictionary *metrics = @{@"buttonWidth" : @(50)};
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[_cameraButton(==buttonWidth)]-5-[_textView]-5-[_send(==buttonWidth)]-5-|" options:0 metrics:metrics views:views]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-4-[_cameraButton(==buttonWidth)]-4-[_textView]-7-|" options:0 metrics:metrics views:views]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[_textView]-7-|" options:0 metrics:0 views:views]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_cameraButton(==30)]-5-|" options:0 metrics:0 views:views]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_send(==30)]-5-|" options:0 metrics:0 views:views]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_cameraButton(==30)]-7-|" options:0 metrics:0 views:views]];
+        //[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_send(==30)]-5-|" options:0 metrics:0 views:views]];
 
     }
     

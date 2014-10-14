@@ -6,18 +6,20 @@
 //  Copyright (c) 2014 Bob Law. All rights reserved.
 //
 
-#import "INImageTableViewCell.h"
+#import "INChatImageTableViewCell.h"
 #import "NSNumber+Orientation.h"
 
-@interface INImageTableViewCell ()
+@interface INChatImageTableViewCell ()
 
 @property (nonatomic, strong) UIVisualEffectView *blurView;
-@property (nonatomic, strong) UIView *indicatorView;
-@property (nonatomic, strong) NSLayoutConstraint *sideConstraint;
+@property (nonatomic, strong) UIImageView *indicatorView;
+@property (nonatomic, strong) NSLayoutConstraint *sideMarginConstraint;
+
+@property (nonatomic, strong) NSLayoutConstraint *timeStampConstraint;
 
 @end
 
-@implementation INImageTableViewCell
+@implementation INChatImageTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -55,8 +57,6 @@
         
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.timeStamp attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-3]];
         
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.indicatorView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.chatImageView attribute:NSLayoutAttributeRight multiplier:1.0 constant:-2.5]];
-        
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.timeStamp attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.indicatorView attribute:NSLayoutAttributeLeft multiplier:1.0 constant:-6]];
         
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.indicatorView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.timeStamp attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
@@ -90,12 +90,20 @@
     self.chatImageView.image = image;
     
     if (incoming) {
-        self.sideConstraint = [NSLayoutConstraint constraintWithItem:self.chatImageView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeft multiplier:1 constant:10];
+        self.sideMarginConstraint = [NSLayoutConstraint constraintWithItem:self.chatImageView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeft multiplier:1 constant:10];
+        
+        self.timeStampConstraint = [NSLayoutConstraint constraintWithItem:self.timeStamp attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.chatImageView attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0];
+        [self.contentView addConstraint:self.timeStampConstraint];
+        
+        self.indicatorView.image = nil;
+        
     } else {
-        self.sideConstraint = [NSLayoutConstraint constraintWithItem:self.chatImageView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeRight multiplier:1 constant:-10];
+        self.sideMarginConstraint = [NSLayoutConstraint constraintWithItem:self.chatImageView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeRight multiplier:1 constant:-10];
+        
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.indicatorView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.chatImageView attribute:NSLayoutAttributeRight multiplier:1.0 constant:-2.5]];
     }
     
-    [self.contentView addConstraint:self.sideConstraint];
+    [self.contentView addConstraint:self.sideMarginConstraint];
     
     [UIView animateWithDuration:0.0 animations:^{
         self.blurView.alpha = privacy ? 1.0f : 0.0f;
@@ -105,7 +113,8 @@
 - (void)prepareForReuse
 {
     self.chatImageView.image = nil;
-    [self.contentView removeConstraint:self.sideConstraint];
+    [self.contentView removeConstraint:self.sideMarginConstraint];
+    [self.contentView removeConstraint:self.timeStampConstraint];
 }
 
 - (void)imageViewWasTapped
