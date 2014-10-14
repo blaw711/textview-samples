@@ -28,4 +28,6 @@
 
 @property (nonatomic, weak) id<KBInteractiveTextViewDelegate> delegate;
 
+- (void)refreshHeight;
+
 @end

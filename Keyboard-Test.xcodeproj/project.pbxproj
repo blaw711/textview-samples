@@ -37,7 +37,7 @@
 		6DE2971419E85ADF0042FC21 /* DAKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2971319E85ADF0042FC21 /* DAKeyboardControl.m */; };
 		6DE2971719E880520042FC21 /* INUserViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2971619E880520042FC21 /* INUserViewTableViewCell.m */; };
 		6DE2971A19E88B750042FC21 /* INRecipientImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2971919E88B750042FC21 /* INRecipientImageTableViewCell.m */; };
-		6DE2971D19E88E680042FC21 /* INUserTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2971C19E88E680042FC21 /* INUserTextTableViewCell.m */; };
+		6DE2971D19E88E680042FC21 /* INChatMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2971C19E88E680042FC21 /* INChatMessageTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,8 +105,8 @@
 		6DE2971619E880520042FC21 /* INUserViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INUserViewTableViewCell.m; sourceTree = "<group>"; };
 		6DE2971819E88B750042FC21 /* INRecipientImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INRecipientImageTableViewCell.h; sourceTree = "<group>"; };
 		6DE2971919E88B750042FC21 /* INRecipientImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INRecipientImageTableViewCell.m; sourceTree = "<group>"; };
-		6DE2971B19E88E680042FC21 /* INUserTextTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INUserTextTableViewCell.h; sourceTree = "<group>"; };
-		6DE2971C19E88E680042FC21 /* INUserTextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INUserTextTableViewCell.m; sourceTree = "<group>"; };
+		6DE2971B19E88E680042FC21 /* INChatMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INChatMessageTableViewCell.h; sourceTree = "<group>"; };
+		6DE2971C19E88E680042FC21 /* INChatMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INChatMessageTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,8 +206,8 @@
 				6DE2971619E880520042FC21 /* INUserViewTableViewCell.m */,
 				6DE2971819E88B750042FC21 /* INRecipientImageTableViewCell.h */,
 				6DE2971919E88B750042FC21 /* INRecipientImageTableViewCell.m */,
-				6DE2971B19E88E680042FC21 /* INUserTextTableViewCell.h */,
-				6DE2971C19E88E680042FC21 /* INUserTextTableViewCell.m */,
+				6DE2971B19E88E680042FC21 /* INChatMessageTableViewCell.h */,
+				6DE2971C19E88E680042FC21 /* INChatMessageTableViewCell.m */,
 				5A61EABA19E8E8DB00CC7A69 /* INImageTableViewCell.h */,
 				5A61EABB19E8E8DB00CC7A69 /* INImageTableViewCell.m */,
 				5A61EAC119EA411F00CC7A69 /* INVideoTableViewCell.h */,
@@ -383,7 +383,7 @@
 				5A61EAC319EA411F00CC7A69 /* INVideoTableViewCell.m in Sources */,
 				5A56568919EAF65900C98DB3 /* DALabeledCircularProgressView.m in Sources */,
 				5A97DE5019EB8696007FF8DE /* TGRImageZoomAnimationController.m in Sources */,
-				6DE2971D19E88E680042FC21 /* INUserTextTableViewCell.m in Sources */,
+				6DE2971D19E88E680042FC21 /* INChatMessageTableViewCell.m in Sources */,
 				5A56568819EAF65900C98DB3 /* DACircularProgressView.m in Sources */,
 				5ABC3AB419EB6DDC00D00986 /* INChatObject.m in Sources */,
 				5A61EAC919EA58E200CC7A69 /* INMotherChatTableViewCell.m in Sources */,

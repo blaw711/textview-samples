@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Bob Law. All rights reserved.
 //
 
-#import "INUserTextTableViewCell.h"
+#import "INChatMessageTableViewCell.h"
 #import "NSNumber+Orientation.h"
 #import "TTTAttributedLabel.h"
 
-@interface INUserTextTableViewCell ()
+@interface INChatMessageTableViewCell ()
 
 @property (nonatomic, strong) UIView *backgroundView;
 @property (nonatomic, strong) TTTAttributedLabel *label;
@@ -20,7 +20,7 @@
 
 @end
 
-@implementation INUserTextTableViewCell
+@implementation INChatMessageTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

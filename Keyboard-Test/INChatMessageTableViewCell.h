@@ -10,7 +10,7 @@
 #import "INMotherChatTableViewCell.h"
 
 
-@interface INUserTextTableViewCell : INMotherChatTableViewCell
+@interface INChatMessageTableViewCell : INMotherChatTableViewCell
 
 - (void)prepareWithText:(NSString *)text incoming:(BOOL)incoming privacy:(BOOL)privacy;
 

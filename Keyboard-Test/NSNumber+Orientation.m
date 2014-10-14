@@ -16,6 +16,8 @@
 {
     switch ([[UIDevice currentDevice] orientation]) {
         case UIDeviceOrientationPortrait:
+        case UIDeviceOrientationFaceDown:
+        case UIDeviceOrientationFaceUp:
             return @(CGRectGetHeight([UIScreen mainScreen].bounds));
             break;
         default:
@@ -28,6 +30,8 @@
 {
     switch ([[UIDevice currentDevice] orientation]) {
         case UIDeviceOrientationPortrait:
+        case UIDeviceOrientationFaceDown:
+        case UIDeviceOrientationFaceUp:
             return @(CGRectGetWidth([UIScreen mainScreen].bounds));
             break;
         default:
@@ -40,6 +44,8 @@
 {
     switch ([[UIDevice currentDevice] orientation]) {
         case UIDeviceOrientationPortrait:
+        case UIDeviceOrientationFaceDown:
+        case UIDeviceOrientationFaceUp:
             return @(CGRectGetWidth([UIScreen mainScreen].bounds));
             break;
         default:
@@ -52,6 +58,8 @@
 {
     switch ([[UIDevice currentDevice] orientation]) {
         case UIDeviceOrientationPortrait:
+        case UIDeviceOrientationFaceDown:
+        case UIDeviceOrientationFaceUp:
             return @(CGRectGetHeight([UIScreen mainScreen].bounds));
             break;
         default:
