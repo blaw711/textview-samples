@@ -11,14 +11,14 @@
 #import "DAKeyboardControl.h"
 #import "INUserViewTableViewCell.h"
 #import "INRecipientImageTableViewCell.h"
-#import "INUserTextTableViewCell.h"
+#import "INChatMessageTableViewCell.h"
 #import "INImageTableViewCell.h"
 #import "INVideoTableViewCell.h"
 #import "INChatObject.h"
 #import "TGRImageViewController.h"
 #import "TGRImageZoomAnimationController.h"
 
-const static CGFloat kInitialToolBarHeight = 50.0f;
+const static CGFloat kInitialToolBarHeight = 45.0f;
 
 @interface ViewController () <UITableViewDataSource, UITableViewDelegate, KBInteractiveTextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIViewControllerTransitioningDelegate, INImageTableViewCellDelegate, INMotherChatTableViewCellDelegate>
 
@@ -33,7 +33,7 @@ const static CGFloat kInitialToolBarHeight = 50.0f;
 
 @property (nonatomic, strong) NSNumber *keyboardHeight;
 
-@property (nonatomic, strong) UIToolbar *toolBar;
+@property (nonatomic, strong) UIView *toolBar;
 
 @property (nonatomic, strong) NSNumber *isPrivate;
 
@@ -56,6 +56,8 @@ const static CGFloat kInitialToolBarHeight = 50.0f;
     
     self.chatArray = [NSMutableArray new];
     
+    self.navigationController.hidesBarsOnSwipe = YES;
+    
     self.tableView  = [[UITableView alloc] initWithFrame:CGRectMake(0.0f,
                                                                            0.0f,
                                                                            self.view.bounds.size.width,
@@ -75,28 +77,31 @@ const static CGFloat kInitialToolBarHeight = 50.0f;
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.view.backgroundColor = [UIColor clearColor];
     
-    self.toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f,
+    self.toolBar = [[UIView alloc] initWithFrame:CGRectMake(0.0f,
                                                                      self.view.bounds.size.height - kInitialToolBarHeight,
                                                                      self.view.bounds.size.width,
                                                                      kInitialToolBarHeight)];
-    self.toolBar.translucent = NO;
-    self.toolBar.backgroundColor = [UIColor whiteColor];
+//    self.toolBar.translucent = NO;
+    self.toolBar.backgroundColor = [UIColor clearColor];
     self.toolBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
-    self.toolBar.clipsToBounds = YES;
+    //self.toolBar.clipsToBounds = YES;
     [self.view addSubview:self.toolBar];
     
     self.isPrivate = @(NO);
     
     self.textView = [[KBInteractiveTextView alloc] init];
     self.textView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.textView.backgroundColor = [UIColor clearColor];
     self.textView.delegate = self;
     [self.toolBar addSubview:self.textView];
+    
+    self.textView.heightConstraint.constant = kInitialToolBarHeight;
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_textView);
     [self.toolBar addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_textView]|" options:0 metrics:0 views:views]];
     [self.toolBar addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_textView]|" options:0 metrics:0 views:views]];
     
-    self.view.keyboardTriggerOffset = self.toolBar.bounds.size.height;
+    self.view.keyboardTriggerOffset = kInitialToolBarHeight;
     
     __weak typeof(self) weakSelf = self;
     
@@ -119,11 +124,17 @@ const static CGFloat kInitialToolBarHeight = 50.0f;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHide:) name:UIKeyboardDidHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardDidChangeFrame:) name:UIKeyboardDidChangeFrameNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)    name:UIDeviceOrientationDidChangeNotification  object:nil];
+
     
 //    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 300, 44)];
 //    [self.shyNavBarManager setExtensionView:toolBar];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 //- (void)viewDidAppear:(BOOL)animated
 //{
 //    self.shyNavBarManager.scrollView = self.tableView;
@@ -142,6 +153,21 @@ const static CGFloat kInitialToolBarHeight = 50.0f;
 //   // ;
 //}
 
+- (void)orientationChanged:(NSNotification *)notification
+{
+    //update UI if needed
+    [self.textView refreshHeight];
+    [UIView animateWithDuration:0.0 animations:^{
+        CGRect toolBar = self.toolBar.frame;
+        toolBar.origin.y = self.view.frame.size.height - (self.textView.textView.isFirstResponder ? self.keyboardHeight.floatValue : 0) - toolBar.size.height;
+        self.toolBar.frame = toolBar;
+        
+        CGRect tableViewFrame = self.tableView.frame;
+        tableViewFrame.size.height = self.toolBar.frame.origin.y;
+        self.tableView.frame = tableViewFrame;
+    }];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -153,7 +179,10 @@ const static CGFloat kInitialToolBarHeight = 50.0f;
     //keyboardSlideDuration is an instance variable so we can keep it around to use in the "dismiss keyboard" animation.
     CGRect keyboardFrame = [[userInfo objectForKey: UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
-//    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:49 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    if (self.chatArray.count) {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.chatArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
+    
     self.keyboardHeight = @(keyboardFrame.size.height);
 }
 
@@ -220,7 +249,7 @@ const static CGFloat kInitialToolBarHeight = 50.0f;
 {
     [UIView animateWithDuration:0.0 animations:^{
         CGRect toolBar = self.toolBar.frame;
-        toolBar.size.height = height + 5;
+        toolBar.size.height = height + 4;
         toolBar.origin.y = self.view.frame.size.height - self.keyboardHeight.floatValue - toolBar.size.height;
         self.toolBar.frame = toolBar;
         
@@ -271,6 +300,19 @@ const static CGFloat kInitialToolBarHeight = 50.0f;
     self.image = nil;
     
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.chatArray.count -1  inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    
+    self.view.keyboardTriggerOffset = kInitialToolBarHeight;
+    
+   // [UIView animateWithDuration:0.0 animations:^{
+        CGRect toolBar = self.toolBar.frame;
+        toolBar.size.height = kInitialToolBarHeight;
+        toolBar.origin.y = self.view.frame.size.height - (self.textView.textView.isFirstResponder ? self.keyboardHeight.floatValue : 0) - toolBar.size.height;
+        self.toolBar.frame = toolBar;
+        
+        CGRect tableViewFrame = self.tableView.frame;
+        tableViewFrame.size.height = toolBar.origin.y;
+        self.tableView.frame = tableViewFrame;
+    //}];
 }
 
 #pragma marks - UIImagePickerControllerDelegate
@@ -306,9 +348,9 @@ const static CGFloat kInitialToolBarHeight = 50.0f;
         [cell prepareWithImage:object.image privacy:self.isPrivate.boolValue incoming:object.incoming.boolValue];
         return cell;
     } else {
-        INUserTextTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"youtextimageCell"];
+        INChatMessageTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"youtextimageCell"];
         if (!cell) {
-            cell = [[INUserTextTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"youtextimageCell"];
+            cell = [[INChatMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"youtextimageCell"];
         }
         [cell prepareWithText:object.text incoming:object.incoming.boolValue privacy:self.isPrivate.boolValue];
         [cell setPrivacyMode:self.isPrivate.boolValue];
